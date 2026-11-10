@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { products } from '../../data/products';
+import { categories } from '../../data/categories';
 import { FilterState, CategoryId, ProductType } from '../../types';
 import { productMatchesQuery } from '../../utils/search';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
@@ -34,7 +35,12 @@ export const ShopPage: React.FC = () => {
 
   // Sync with URL query parameters on initial load or change
   useEffect(() => {
-    const categoryParam = searchParams.get('category') as CategoryId | null;
+    const categoryParam = searchParams.get('category');
+    const knownCategories = new Set(categories.map((category) => category.id));
+    const categoryIds = (categoryParam ?? '')
+      .split(',')
+      .map((value) => value.trim())
+      .filter((value): value is CategoryId => knownCategories.has(value as CategoryId));
     const searchParam = searchParams.get('search');
     const brandParam = searchParams.get('brand');
     const productTypeParam = searchParams.get('productType') as ProductType | null;
@@ -43,7 +49,7 @@ export const ShopPage: React.FC = () => {
 
     setFilters((prev) => ({
       ...prev,
-      categories: categoryParam ? [categoryParam] : prev.categories,
+      categories: categoryIds.length > 0 ? categoryIds : prev.categories,
       brands: brandParam ? [brandParam] : prev.brands,
       searchQuery: searchParam || prev.searchQuery,
       productTypes: productTypeParam ? [productTypeParam] : prev.productTypes,

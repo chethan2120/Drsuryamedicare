@@ -16,19 +16,10 @@ export const BulkCtaSection: React.FC = () => {
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-brand-ivory/80 sm:text-base">
             Send a product list with quantities. The desk replies with a quotation for clinics, hospitals, and other institutional buyers.
           </p>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {buyers.map((buyer) => (
-              <li key={buyer} className="rounded-full border border-white/15 px-3 py-1 text-xs">
-                {buyer}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <p className="mt-4 text-sm text-brand-ivory/80">{buyers.join(' · ')}</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link to="/bulk-orders" className="inline-flex min-h-11 items-center justify-center rounded-[10px] bg-brand-emerald px-5 text-sm font-semibold text-brand-navy">
               Bulk Order Enquiry
-            </Link>
-            <Link to="/bulk-orders" className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 px-5 text-sm font-semibold">
-              Request a Quote
             </Link>
             <Link to="/contact" className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 px-5 text-sm font-semibold">
               Contact Sales

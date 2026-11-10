@@ -8,22 +8,18 @@ import { formatINR } from '../../utils/formatters';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { BulkCtaSection } from '../../components/Home/BulkCtaSection';
 import { FaqSection } from '../../components/Home/FaqSection';
-import { BestsellersSection } from '../../components/Home/BestsellersSection';
 import { HeroShowcase } from '../../components/Home/HeroShowcase';
+import { TopSellingShowcase } from '../../components/Home/TopSellingShowcase';
 
 export const HomePage: React.FC = () => {
   const shopCategories = categories.filter((category) => category.productCount > 0);
   const featured = products.filter((product) => product.isFeatured).slice(0, 4);
-  const featuredIds = new Set(featured.map((product) => product.id));
-  const equipment = products
-    .filter((product) => product.productType === 'Medical Equipment' && !featuredIds.has(product.id))
-    .slice(0, 4);
   const brands = useMemo(() => {
-    const grouped = new Map<string, { name: string; count: number; image: string }>();
+    const grouped = new Map<string, { name: string; count: number }>();
     products.forEach((product) => {
       const current = grouped.get(product.brand);
       if (current) current.count += 1;
-      else grouped.set(product.brand, { name: product.brand, count: 1, image: product.images[0] });
+      else grouped.set(product.brand, { name: product.brand, count: 1 });
     });
     return Array.from(grouped.values()).sort((a, b) => b.count - a.count).slice(0, 8);
   }, []);
@@ -104,6 +100,8 @@ export const HomePage: React.FC = () => {
         </ul>
       </section>
 
+      <TopSellingShowcase />
+
       <section className="border-t border-brand-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <div className="mb-5 flex items-end justify-between gap-4">
@@ -121,9 +119,9 @@ export const HomePage: React.FC = () => {
               <Link
                 key={category.id}
                 to={`/shop?category=${category.id}`}
-                className="flex h-full flex-col rounded-2xl border border-brand-border bg-brand-cool p-3"
+                className="flex h-full flex-col border border-brand-border bg-white p-3"
               >
-                <div className="flex h-28 items-center justify-center overflow-hidden rounded-xl bg-white">
+                <div className="flex h-28 items-center justify-center overflow-hidden bg-brand-ivory">
                   <img
                     src={category.image}
                     alt=""
@@ -138,6 +136,17 @@ export const HomePage: React.FC = () => {
               </Link>
             ))}
           </div>
+          <p className="mt-6 text-sm leading-relaxed text-brand-muted">
+            Shop by brand:{' '}
+            {brands.map((brand, index) => (
+              <span key={brand.name}>
+                {index > 0 && <span aria-hidden="true"> · </span>}
+                <Link to={`/shop?brand=${encodeURIComponent(brand.name)}`} className="font-semibold text-brand-navy">
+                  {brand.name}
+                </Link>
+              </span>
+            ))}
+          </p>
         </div>
       </section>
 
@@ -145,8 +154,8 @@ export const HomePage: React.FC = () => {
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <h2 className="section-title">Featured products</h2>
-              <p className="mt-1 text-sm text-brand-muted">Marked in the current catalogue.</p>
+              <h2 className="section-title">Featured healthcare equipment and supplies</h2>
+              <p className="mt-1 text-sm text-brand-muted">Items marked as featured in the current catalogue.</p>
             </div>
             <Link to="/shop" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand-navy">
               View all
@@ -161,85 +170,72 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="section-title">Popular medical equipment</h2>
-              <p className="mt-1 text-sm text-brand-muted">Devices listed under medical equipment.</p>
-            </div>
-            <Link to="/shop?productType=Medical%20Equipment" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand-navy">
-              Browse equipment
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {equipment.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-brand-border bg-brand-cool">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-          <h2 className="section-title">Shop by brand</h2>
-          <p className="mt-1 text-sm text-brand-muted">Brands already listed on products in this catalogue.</p>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {brands.map((brand) => (
-              <Link
-                key={brand.name}
-                to={`/shop?brand=${encodeURIComponent(brand.name)}`}
-                className="flex items-center gap-3 rounded-2xl border border-brand-border bg-white p-3"
-              >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand-ivory">
-                  <img src={brand.image} alt="" className="h-full w-full object-contain p-1" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-semibold text-brand-navy">{brand.name}</span>
-                  <span className="text-xs text-brand-muted">{brand.count} products</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <BestsellersSection />
       <BulkCtaSection />
 
-      <section className="bg-white">
+      <section className="border-b border-brand-border bg-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-4">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Why this desk</p>
-            <h2 className="section-title mt-2">A straightforward way to order and enquire.</h2>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Why Dr Surya Medicare</p>
+            <h2 className="section-title mt-2">Ordering and enquiries, in one place.</h2>
           </div>
-          <dl className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-            <div className="rounded-2xl border border-brand-border p-4">
+          <dl className="divide-y divide-brand-border border-y border-brand-border lg:col-span-8">
+            <div className="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
               <dt className="font-heading font-bold text-brand-navy">WhatsApp ordering</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+              <dd className="text-sm leading-relaxed text-brand-body sm:col-span-2">
                 The cart is sent to {storeConfig.whatsappDisplayNumber}. Payment is confirmed with the desk, not on this page.
               </dd>
             </div>
-            <div className="rounded-2xl border border-brand-border p-4">
+            <div className="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
               <dt className="font-heading font-bold text-brand-navy">Delivery</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+              <dd className="text-sm leading-relaxed text-brand-body sm:col-span-2">
                 Listed transit is {storeConfig.shipping.estimatedDays}. Delivery is free from {formatINR(storeConfig.shipping.freeThreshold)}.
               </dd>
             </div>
-            <div className="rounded-2xl border border-brand-border p-4">
+            <div className="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
               <dt className="font-heading font-bold text-brand-navy">Institutional quotes</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+              <dd className="text-sm leading-relaxed text-brand-body sm:col-span-2">
                 Hospitals, clinics, laboratories, and nursing homes can send a quantity list from the bulk enquiry form.
               </dd>
             </div>
-            <div className="rounded-2xl border border-brand-border p-4">
-              <dt className="font-heading font-bold text-brand-navy">A person on the phone</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+            <div className="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
+              <dt className="font-heading font-bold text-brand-navy">Sales desk</dt>
+              <dd className="text-sm leading-relaxed text-brand-body sm:col-span-2">
                 {storeConfig.supportPhone} · {storeConfig.supportEmail}
               </dd>
             </div>
           </dl>
+        </div>
+      </section>
+
+      <section className="bg-brand-ivory">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <h2 className="section-title">Healthcare resources</h2>
+              <p className="mt-1 text-sm text-brand-muted">Guides, specifications, and manuals already published on this site.</p>
+            </div>
+            <Link to="/resources" className="inline-flex min-h-11 shrink-0 items-center gap-1 text-sm font-semibold text-brand-navy">
+              All resources
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <ul className="mt-6 divide-y divide-brand-border border-y border-brand-border">
+            {[
+              { to: '/resources/buying-guides', title: 'Buying guides', detail: 'Procurement notes for hospitals and clinics.' },
+              { to: '/resources/specifications', title: 'Specifications', detail: 'Technical details stored with each product.' },
+              { to: '/resources/manuals', title: 'Manuals and downloads', detail: 'Documents listed in the manuals archive.' },
+              { to: '/resources/knowledge', title: 'Product knowledge', detail: 'Short explainers on products in the catalogue.' },
+              { to: '/resources/blogs', title: 'Articles', detail: 'Notes published in the resource library.' },
+              { to: '/resources/faqs', title: 'Questions', detail: 'Ordering, delivery, and quotation answers.' },
+            ].map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className="grid gap-1 py-4 sm:grid-cols-3 sm:items-baseline sm:gap-6">
+                  <span className="font-heading font-bold text-brand-navy">{item.title}</span>
+                  <span className="text-sm text-brand-body sm:col-span-2">{item.detail}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
