@@ -144,11 +144,11 @@ export const Header: React.FC = () => {
             <Link
               to="/#home"
               onClick={handleLogoClick}
-              className="brand-lockup group flex min-w-0 shrink items-center gap-2 sm:shrink-0 sm:gap-2.5"
+              className="brand-lockup group flex min-w-0 shrink items-center gap-2 outline-none sm:shrink-0 sm:gap-2.5"
               title="Dr Surya Medicare - Home"
             >
               <div
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-forest flex items-center justify-center text-white ring-1 ring-brand-gold/70 shadow-xs flex-shrink-0"
+                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-brand-forest text-white sm:h-10 sm:w-10"
               >
                 <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-brand-ivory" />
               </div>

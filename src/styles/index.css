@@ -47,6 +47,11 @@
     outline: 2px solid #14D993;
     outline-offset: 2px;
   }
+
+  .brand-lockup:focus,
+  .brand-lockup:focus-visible {
+    outline: none;
+  }
 }
 
 @layer components {
