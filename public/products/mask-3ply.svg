@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  
+      <defs>
+        <linearGradient id="maskBg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFFCF6"/>
+          <stop offset="100%" stop-color="#EAF3E9"/>
+        </linearGradient>
+        <linearGradient id="maskBody" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#bae6fd"/>
+          <stop offset="50%" stop-color="#7dd3fc"/>
+          <stop offset="100%" stop-color="#38bdf8"/>
+        </linearGradient>
+        <filter id="maskShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#046A38" flood-opacity="0.15"/>
+        </filter>
+      </defs>
+      <rect width="600" height="600" fill="url(#maskBg)"/>
+      <g filter="url(#maskShadow)" transform="translate(100, 160)">
+        <!-- Left Earloop -->
+        <path d="M 50 140 C -40 140, -40 20, 50 20" fill="none" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round"/>
+        <path d="M 50 140 C -40 140, -40 20, 50 20" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+        <!-- Right Earloop -->
+        <path d="M 350 140 C 440 140, 440 20, 350 20" fill="none" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round"/>
+        <path d="M 350 140 C 440 140, 440 20, 350 20" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+        <!-- Mask Main Body -->
+        <rect x="40" y="10" width="320" height="150" rx="12" fill="url(#maskBody)" stroke="#0284c7" stroke-width="2"/>
+        <!-- Nose Bridge Wire -->
+        <rect x="120" y="15" width="160" height="5" rx="2" fill="#0369a1"/>
+        <!-- Pleats -->
+        <line x1="40" y1="50" x2="360" y2="50" stroke="#0284c7" stroke-width="3"/>
+        <line x1="40" y1="56" x2="360" y2="56" stroke="white" stroke-width="2" opacity="0.7"/>
+        <line x1="40" y1="90" x2="360" y2="90" stroke="#0284c7" stroke-width="3"/>
+        <line x1="40" y1="96" x2="360" y2="96" stroke="white" stroke-width="2" opacity="0.7"/>
+        <line x1="40" y1="130" x2="360" y2="130" stroke="#0284c7" stroke-width="3"/>
+        <line x1="40" y1="136" x2="360" y2="136" stroke="white" stroke-width="2" opacity="0.7"/>
+        <!-- Ultrasonic welded edge pattern -->
+        <line x1="45" y1="15" x2="45" y2="155" stroke="#0369a1" stroke-width="3" stroke-dasharray="4,4"/>
+        <line x1="355" y1="15" x2="355" y2="155" stroke="#0369a1" stroke-width="3" stroke-dasharray="4,4"/>
+      </g>
+      <!-- Pack Details Box Below -->
+      <g filter="url(#maskShadow)" transform="translate(130, 370)">
+        <rect x="0" y="0" width="340" height="110" rx="16" fill="white" stroke="#E7E2D8" stroke-width="2"/>
+        <text x="24" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="18" fill="#046A38">SuryaShield 3-Ply Surgical</text>
+        <text x="24" y="60" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#747C72">BFE ≥ 99% • Fluid Resistant • 50 Pcs/Pack</text>
+        <rect x="24" y="74" width="90" height="22" rx="6" fill="#046A38"/>
+        <text x="69" y="89" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" text-anchor="middle">50 MASKS</text>
+        <rect x="124" y="74" width="100" height="22" rx="6" fill="#EAF3E9"/>
+        <text x="174" y="89" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">MELTBLOWN</text>
+      </g>
+      <rect x="40" y="40" width="160" height="32" rx="16" fill="#046A38" opacity="0.1"/>
+      <text x="120" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="12" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+    
+</svg>

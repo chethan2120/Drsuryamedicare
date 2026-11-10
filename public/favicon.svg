@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="12" fill="#046A38"/>
+  <circle cx="24" cy="24" r="16" fill="#F9EBD7" opacity="0.15"/>
+  <!-- Caduceus / Cross emblem in Warm Ivory & Vermilion accent -->
+  <path d="M21 12h6v24h-6z" fill="#F9EBD7"/>
+  <path d="M12 21h24v6H12z" fill="#F9EBD7"/>
+  <circle cx="24" cy="24" r="4" fill="#E34222"/>
+</svg>

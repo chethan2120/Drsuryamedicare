@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="bg_tabvitc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFCF6"/>
+      <stop offset="100%" stop-color="#F4ECE1"/>
+    </linearGradient>
+    <linearGradient id="card_tabvitc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <filter id="sh_tabvitc" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#046A38" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg_tabvitc)"/>
+  
+  <!-- Subtle circular halo -->
+  <circle cx="300" cy="270" r="180" fill="#ea580c" opacity="0.08"/>
+
+  <!-- Main Product Canvas Box -->
+  <g filter="url(#sh_tabvitc)" transform="translate(100, 90)">
+    <rect x="0" y="0" width="400" height="360" rx="28" fill="white" stroke="#E7E2D8" stroke-width="3"/>
+    
+    <!-- Top Brand Header Bar -->
+    <path d="M0 28 Q0 0 28 0 L372 0 Q400 0 400 28 L400 75 L0 75 Z" fill="url(#card_tabvitc)"/>
+    <text x="24" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" fill="#FFFCF6">Surya-C 500mg Chewable + Zinc</text>
+    <text x="24" y="58" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#EAF3E9">DAILY IMMUNITY MEDICINE • CDSCO VERIFIED</text>
+    
+    <!-- Custom Rendered Icon/Illustration in Center -->
+    <g transform="translate(80, 110)">
+      
+      <!-- Orange Chewable Tablets -->
+      <rect x="20" y="10" width="200" height="130" rx="14" fill="#fff7ed" stroke="#fed7aa" stroke-width="3"/>
+      
+        <circle cx="55" cy="42" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="55" y="46" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+        <circle cx="55" cy="97" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="55" y="101" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+        <circle cx="110" cy="42" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="110" y="46" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+        <circle cx="110" cy="97" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="110" y="101" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+        <circle cx="165" cy="42" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="165" y="46" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+        <circle cx="165" cy="97" r="20" fill="#f97316" stroke="#ea580c" stroke-width="2"/>
+        <text x="165" y="101" font-family="Inter, sans-serif" font-weight="800" font-size="9" fill="white" text-anchor="middle">500</text>
+      
+    
+    </g>
+
+    <!-- Bottom Specs Pill -->
+    <rect x="24" y="300" width="110" height="26" rx="6" fill="#046A38"/>
+    <text x="79" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" text-anchor="middle">IN STOCK</text>
+    <rect x="144" y="300" width="110" height="26" rx="6" fill="#EAF3E9"/>
+    <text x="199" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">GENUINE BATCH</text>
+  </g>
+
+  <!-- Top Left Dr Surya Brand Tag -->
+  <rect x="40" y="40" width="170" height="32" rx="16" fill="#046A38" opacity="0.12"/>
+  <text x="125" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+</svg>

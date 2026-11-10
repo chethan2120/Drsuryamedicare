@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="bg_needle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFCF6"/>
+      <stop offset="100%" stop-color="#F4ECE1"/>
+    </linearGradient>
+    <linearGradient id="card_needle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="sh_needle" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#046A38" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg_needle)"/>
+  
+  <!-- Subtle circular halo -->
+  <circle cx="300" cy="270" r="180" fill="#334155" opacity="0.08"/>
+
+  <!-- Main Product Canvas Box -->
+  <g filter="url(#sh_needle)" transform="translate(100, 90)">
+    <rect x="0" y="0" width="400" height="360" rx="28" fill="white" stroke="#E7E2D8" stroke-width="3"/>
+    
+    <!-- Top Brand Header Bar -->
+    <path d="M0 28 Q0 0 28 0 L372 0 Q400 0 400 28 L400 75 L0 75 Z" fill="url(#card_needle)"/>
+    <text x="24" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" fill="#FFFCF6">Castroviejo Micro Needle Holder</text>
+    <text x="24" y="58" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#EAF3E9">MICROSURGERY INSTRUMENTS • CDSCO VERIFIED</text>
+    
+    <!-- Custom Rendered Icon/Illustration in Center -->
+    <g transform="translate(80, 110)">
+      
+      <!-- Tungsten carbide gold handle needle holder -->
+      <line x1="100" y1="20" x2="85" y2="120" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+      <line x1="120" y1="20" x2="135" y2="120" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+      <!-- Gold plated handle rings -->
+      <rect x="75" y="80" width="15" height="40" rx="3" fill="#eab308"/>
+      <rect x="130" y="80" width="15" height="40" rx="3" fill="#eab308"/>
+    
+    </g>
+
+    <!-- Bottom Specs Pill -->
+    <rect x="24" y="300" width="110" height="26" rx="6" fill="#046A38"/>
+    <text x="79" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" text-anchor="middle">IN STOCK</text>
+    <rect x="144" y="300" width="110" height="26" rx="6" fill="#EAF3E9"/>
+    <text x="199" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">GENUINE BATCH</text>
+  </g>
+
+  <!-- Top Left Dr Surya Brand Tag -->
+  <rect x="40" y="40" width="170" height="32" rx="16" fill="#046A38" opacity="0.12"/>
+  <text x="125" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+</svg>

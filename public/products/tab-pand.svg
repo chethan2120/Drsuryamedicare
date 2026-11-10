@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  
+      <defs>
+        <linearGradient id="panBg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFFCF6"/>
+          <stop offset="100%" stop-color="#FEF3C7"/>
+        </linearGradient>
+        <linearGradient id="blisterFoilY" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fef3c7"/>
+          <stop offset="50%" stop-color="#fde047"/>
+          <stop offset="100%" stop-color="#ca8a04"/>
+        </linearGradient>
+        <filter id="panShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#854d0e" flood-opacity="0.12"/>
+        </filter>
+      </defs>
+      <rect width="600" height="600" fill="url(#panBg)"/>
+      <g filter="url(#panShadow)" transform="translate(100, 110)">
+        <rect x="0" y="0" width="400" height="380" rx="20" fill="url(#blisterFoilY)" stroke="#d97706" stroke-width="3"/>
+        <rect x="0" y="0" width="400" height="65" rx="20" fill="#046A38"/>
+        <text x="30" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="20" fill="#FFFCF6">SuryaPan-D</text>
+        <text x="30" y="54" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#fef08a">PANTOPRAZOLE 40mg + DOMPERIDONE 30mg</text>
+        
+            <ellipse cx="110" cy="105" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="110" y="109" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="110" cy="160" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="110" y="164" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="110" cy="215" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="110" y="219" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="110" cy="270" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="110" y="274" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="110" cy="325" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="110" y="329" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="290" cy="105" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="290" y="109" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="290" cy="160" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="290" y="164" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="290" cy="215" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="290" y="219" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="290" cy="270" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="290" y="274" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+            <ellipse cx="290" cy="325" rx="32" ry="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <text x="290" y="329" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#a16207" text-anchor="middle">PAN-D</text>
+          
+      </g>
+      <rect x="40" y="40" width="160" height="32" rx="16" fill="#046A38" opacity="0.1"/>
+      <text x="120" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="12" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+    
+</svg>

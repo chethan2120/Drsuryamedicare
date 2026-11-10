@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="bg_wheel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFCF6"/>
+      <stop offset="100%" stop-color="#F4ECE1"/>
+    </linearGradient>
+    <linearGradient id="card_wheel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#046A38"/>
+      <stop offset="100%" stop-color="#073D27"/>
+    </linearGradient>
+    <filter id="sh_wheel" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#046A38" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg_wheel)"/>
+  
+  <!-- Subtle circular halo -->
+  <circle cx="300" cy="270" r="180" fill="#046A38" opacity="0.08"/>
+
+  <!-- Main Product Canvas Box -->
+  <g filter="url(#sh_wheel)" transform="translate(100, 90)">
+    <rect x="0" y="0" width="400" height="360" rx="28" fill="white" stroke="#E7E2D8" stroke-width="3"/>
+    
+    <!-- Top Brand Header Bar -->
+    <path d="M0 28 Q0 0 28 0 L372 0 Q400 0 400 28 L400 75 L0 75 Z" fill="url(#card_wheel)"/>
+    <text x="24" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" fill="#FFFCF6">SuryaGlide Hospital Wheelchair</text>
+    <text x="24" y="58" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#EAF3E9">PATIENT CARE & MOBILITY • CDSCO VERIFIED</text>
+    
+    <!-- Custom Rendered Icon/Illustration in Center -->
+    <g transform="translate(80, 110)">
+      
+      <!-- Wheelchair Big Wheel -->
+      <circle cx="80" cy="90" r="40" fill="none" stroke="#475569" stroke-width="6"/>
+      <circle cx="80" cy="90" r="10" fill="#046A38"/>
+      <!-- Small front wheel -->
+      <circle cx="160" cy="115" r="14" fill="none" stroke="#475569" stroke-width="4"/>
+      <!-- Frame -->
+      <line x1="80" y1="90" x2="120" y2="50" stroke="#046A38" stroke-width="6"/>
+      <line x1="120" y1="50" x2="160" y2="115" stroke="#046A38" stroke-width="6"/>
+      <line x1="120" y1="50" x2="120" y2="20" stroke="#046A38" stroke-width="6"/>
+      <line x1="120" y1="20" x2="90" y2="20" stroke="#073D27" stroke-width="6"/>
+    
+    </g>
+
+    <!-- Bottom Specs Pill -->
+    <rect x="24" y="300" width="110" height="26" rx="6" fill="#046A38"/>
+    <text x="79" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" text-anchor="middle">IN STOCK</text>
+    <rect x="144" y="300" width="110" height="26" rx="6" fill="#EAF3E9"/>
+    <text x="199" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">GENUINE BATCH</text>
+  </g>
+
+  <!-- Top Left Dr Surya Brand Tag -->
+  <rect x="40" y="40" width="170" height="32" rx="16" fill="#046A38" opacity="0.12"/>
+  <text x="125" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+</svg>

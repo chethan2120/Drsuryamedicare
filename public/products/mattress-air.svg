@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="bg_matt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFCF6"/>
+      <stop offset="100%" stop-color="#F4ECE1"/>
+    </linearGradient>
+    <linearGradient id="card_matt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <filter id="sh_matt" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#046A38" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg_matt)"/>
+  <circle cx="300" cy="270" r="180" fill="#0284c7" opacity="0.08"/>
+
+  <g filter="url(#sh_matt)" transform="translate(100, 90)">
+    <rect x="0" y="0" width="400" height="360" rx="28" fill="white" stroke="#E7E2D8" stroke-width="3"/>
+    
+    <path d="M0 28 Q0 0 28 0 L372 0 Q400 0 400 28 L400 75 L0 75 Z" fill="url(#card_matt)"/>
+    <text x="24" y="38" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" fill="#FFFCF6">SuryaRest Anti-Bedsore Air Mattress</text>
+    <text x="24" y="58" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#EAF3E9">PATIENT CARE EQUIPMENT • CLINICAL GRADE</text>
+    
+    <g transform="translate(80, 110)">
+      
+      <!-- Alternating pressure air cells -->
+      <g transform="translate(10, 20)">
+        
+          <rect x="0" y="10" width="24" height="90" rx="12" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="30" y="10" width="24" height="90" rx="12" fill="#7dd3fc" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="60" y="10" width="24" height="90" rx="12" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="90" y="10" width="24" height="90" rx="12" fill="#7dd3fc" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="120" y="10" width="24" height="90" rx="12" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="150" y="10" width="24" height="90" rx="12" fill="#7dd3fc" stroke="#0284c7" stroke-width="2"/>
+        
+          <rect x="180" y="10" width="24" height="90" rx="12" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+        
+        <!-- Pump unit -->
+        <rect x="50" y="115" width="120" height="40" rx="8" fill="#1e293b"/>
+        <circle cx="150" cy="135" r="8" fill="#4ade80"/>
+        <text x="100" y="140" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="white">AIR PUMP</text>
+      </g>
+    
+    </g>
+
+    <rect x="24" y="300" width="110" height="26" rx="6" fill="#046A38"/>
+    <text x="79" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" text-anchor="middle">IN STOCK</text>
+    <rect x="144" y="300" width="110" height="26" rx="6" fill="#EAF3E9"/>
+    <text x="199" y="317" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">VERIFIED</text>
+  </g>
+
+  <rect x="40" y="40" width="170" height="32" rx="16" fill="#046A38" opacity="0.12"/>
+  <text x="125" y="61" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#046A38" text-anchor="middle">DR SURYA MEDICARE</text>
+</svg>
