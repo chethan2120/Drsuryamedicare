@@ -104,6 +104,7 @@ export interface BulkEnquirySubmission {
 export interface FilterState {
   searchQuery: string;
   categories: CategoryId[];
+  brands: string[];
   productTypes: ProductType[];
   priceRange: 'all' | 'under-500' | '500-2000' | '2000-10000' | 'above-10000';
   minPrice: number;

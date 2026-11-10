@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { products } from '../../data/products';
-import { categories } from '../../data/categories';
 import { FilterState, CategoryId, ProductType } from '../../types';
+import { productMatchesQuery } from '../../utils/search';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { ProductFilters, HUMAN_LOOKING_FOR_OPTIONS } from '../../components/ProductFilters/ProductFilters';
 import {
@@ -16,6 +16,7 @@ import {
 const INITIAL_FILTERS: FilterState = {
   searchQuery: '',
   categories: [],
+  brands: [],
   productTypes: [],
   priceRange: 'all',
   minPrice: 0,
@@ -35,6 +36,7 @@ export const ShopPage: React.FC = () => {
   useEffect(() => {
     const categoryParam = searchParams.get('category') as CategoryId | null;
     const searchParam = searchParams.get('search');
+    const brandParam = searchParams.get('brand');
     const productTypeParam = searchParams.get('productType') as ProductType | null;
     const sortByParam = searchParams.get('sortBy') as FilterState['sortBy'] | null;
     const onlyDiscountedParam = searchParams.get('onlyDiscounted') === 'true';
@@ -42,6 +44,7 @@ export const ShopPage: React.FC = () => {
     setFilters((prev) => ({
       ...prev,
       categories: categoryParam ? [categoryParam] : prev.categories,
+      brands: brandParam ? [brandParam] : prev.brands,
       searchQuery: searchParam || prev.searchQuery,
       productTypes: productTypeParam ? [productTypeParam] : prev.productTypes,
       sortBy: sortByParam || prev.sortBy,
@@ -59,28 +62,31 @@ export const ShopPage: React.FC = () => {
     return products
       .filter((item) => {
         // 1. Text search
-        if (filters.searchQuery.trim()) {
-          const q = filters.searchQuery.toLowerCase();
-          const matches =
-            item.name.toLowerCase().includes(q) ||
-            item.sku.toLowerCase().includes(q) ||
-            item.brand.toLowerCase().includes(q) ||
-            item.categoryName.toLowerCase().includes(q) ||
-            item.searchKeywords.some((k) => k.toLowerCase().includes(q));
-          if (!matches) return false;
+        if (filters.searchQuery.trim() && !productMatchesQuery(item, filters.searchQuery)) {
+          return false;
         }
 
-        // 2. Categories
         if (filters.categories.length > 0 && !filters.categories.includes(item.category)) {
           return false;
         }
 
-        // 3. Product Types
+        if (filters.brands.length > 0 && !filters.brands.includes(item.brand)) {
+          return false;
+        }
+
         if (filters.productTypes.length > 0 && !filters.productTypes.includes(item.productType)) {
           return false;
         }
 
-        // 4. Discounted only (from URL param if applicable)
+        if (filters.priceRange === 'under-500' && item.price >= 500) return false;
+        if (filters.priceRange === '500-2000' && (item.price < 500 || item.price > 2000)) return false;
+        if (filters.priceRange === '2000-10000' && (item.price < 2000 || item.price > 10000)) return false;
+        if (filters.priceRange === 'above-10000' && item.price <= 10000) return false;
+
+        if (filters.inStockOnly && item.stockStatus !== 'in_stock' && item.stockStatus !== 'low_stock') {
+          return false;
+        }
+
         if (filters.onlyDiscounted && (!item.discountPercent || item.discountPercent <= 0)) {
           return false;
         }
@@ -130,6 +136,27 @@ export const ShopPage: React.FC = () => {
           })),
       });
     });
+
+    filters.brands.forEach((brand) => {
+      chips.push({
+        label: brand,
+        onRemove: () => setFilters((f) => ({ ...f, brands: f.brands.filter((item) => item !== brand) })),
+      });
+    });
+
+    if (filters.priceRange !== 'all') {
+      chips.push({
+        label: filters.priceRange,
+        onRemove: () => setFilters((f) => ({ ...f, priceRange: 'all' })),
+      });
+    }
+
+    if (filters.inStockOnly) {
+      chips.push({
+        label: 'Available now',
+        onRemove: () => setFilters((f) => ({ ...f, inStockOnly: false })),
+      });
+    }
 
     return chips;
   }, [filters]);

@@ -60,8 +60,9 @@
   }
 
   .hero-title {
-    font-size: clamp(2.35rem, 4.6vw, 4.25rem);
-    line-height: 0.98;
+    font-size: clamp(2rem, 1.15rem + 2.6vw, 3.6rem);
+    line-height: 1.04;
+    text-wrap: balance;
   }
 
   .hero-accent {

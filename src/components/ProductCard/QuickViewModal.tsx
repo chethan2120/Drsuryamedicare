@@ -126,7 +126,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               <img
                 src={currentImage}
                 alt={product.name}
-                className="h-full w-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                className="h-full w-full object-contain object-center p-4 transition-transform duration-300 hover:scale-105"
               />
 
               {product.discountPercent && product.discountPercent > 0 && (
@@ -162,7 +162,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                         : 'border-brand-border opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`Thumbnail ${idx + 1}`} className="h-full w-full object-contain p-1" />
                   </button>
                 ))}
               </div>

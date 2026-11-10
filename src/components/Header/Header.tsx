@@ -32,6 +32,7 @@ export const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isTrackOrderOpen, setIsTrackOrderOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [headerQuery, setHeaderQuery] = useState('');
 
   const { totalItemsCount, setIsCartDrawerOpen } = useCart();
   const { wishlistCount } = useWishlist();
@@ -137,7 +138,7 @@ export const Header: React.FC = () => {
           }`}
         >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             
             {/* LEFT: Logo & Brand Name (Navigates to /#home from any page) */}
             <Link
@@ -164,115 +165,29 @@ export const Header: React.FC = () => {
               </div>
             </Link>
 
-            {/* CENTER: Main Desktop Navigation (Home | Shop | Resources | Bulk Orders | About Us | Why Us | Contact Us) */}
-            <nav className="hidden min-w-0 items-center gap-0 whitespace-nowrap lg:flex xl:gap-0.5">
-              <Link
-                to="/#home"
-                onClick={handleLogoClick}
-                className={`rounded-full px-2.5 py-1.5 text-[13px] font-semibold transition-all xl:px-3.5 ${
-                  isActive('/') && location.pathname === '/'
-                    ? 'bg-brand-teal text-white'
-                    : 'text-brand-forest hover:text-brand-teal'
-                }`}
-              >
-                Home
-              </Link>
-
-              <div className="relative group">
-                <Link
-                  to="/shop"
-                  className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all inline-flex items-center gap-1 ${
-                    isActive('/shop') ? 'text-brand-teal' : 'text-brand-forest hover:text-brand-teal'
-                  }`}
-                >
-                  Shop
-                  <ChevronDown className="w-3.5 h-3.5" />
-                </Link>
-                <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100">
-                  <div className="w-64 rounded-2xl border border-brand-stone bg-white p-2 shadow-card">
-                    {categories.slice(0, 6).map((category) => (
-                      <Link
-                        key={category.id}
-                        to={`/shop?category=${category.id}`}
-                        className="block rounded-lg px-3 py-2 text-sm text-brand-forest hover:bg-brand-ivory"
-                      >
-                        {category.name}
-                      </Link>
-                    ))}
-                    <Link to="/shop" className="mt-1 block rounded-lg px-3 py-2 text-sm font-semibold text-brand-teal">
-                      View all products
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative group">
-                <Link
-                  to="/resources"
-                  className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all inline-flex items-center gap-1 ${
-                    isActive('/resources') ? 'text-brand-teal' : 'text-brand-forest hover:text-brand-teal'
-                  }`}
-                >
-                  Resources
-                  <ChevronDown className="w-3.5 h-3.5" />
-                </Link>
-                <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100">
-                  <div className="w-56 rounded-2xl border border-brand-stone bg-white p-2 shadow-card">
-                    <Link to="/resources/blogs" className="block rounded-lg px-3 py-2 text-sm text-brand-forest hover:bg-brand-ivory">Articles</Link>
-                    <Link to="/resources/buying-guides" className="block rounded-lg px-3 py-2 text-sm text-brand-forest hover:bg-brand-ivory">Buying guides</Link>
-                    <Link to="/resources/manuals" className="block rounded-lg px-3 py-2 text-sm text-brand-forest hover:bg-brand-ivory">Manuals</Link>
-                    <Link to="/resources/faqs" className="block rounded-lg px-3 py-2 text-sm text-brand-forest hover:bg-brand-ivory">FAQs</Link>
-                  </div>
-                </div>
-              </div>
-
-              <Link
-                to="/bulk-orders"
-                className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all flex items-center gap-1.5 ${
-                  isActive('/bulk-orders')
-                    ? 'text-brand-emerald bg-brand-softGreen'
-                    : 'text-brand-forest hover:text-brand-emerald hover:bg-brand-ivory/80'
-                }`}
-              >
-                <FileSpreadsheet className="hidden h-3.5 w-3.5 text-brand-emerald xl:block" />
-                <span>Bulk Orders</span>
-              </Link>
-
-              <Link
-                to="/about"
-                className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all ${
-                  isActive('/about')
-                    ? 'text-brand-emerald bg-brand-softGreen'
-                    : 'text-brand-forest hover:text-brand-emerald hover:bg-brand-ivory/80'
-                }`}
-              >
-                About Us
-              </Link>
-
-              <Link
-                to="/why-us"
-                className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all ${
-                  isActive('/why-us')
-                    ? 'text-brand-emerald bg-brand-softGreen'
-                    : 'text-brand-forest hover:text-brand-emerald hover:bg-brand-ivory/80'
-                }`}
-              >
-                Why Us
-              </Link>
-
-              {/* CONTACT US (Proper navigation link) */}
-              <Link
-                to="/contact"
-                className={`px-2.5 xl:px-3 py-2 rounded-lg text-[13px] font-semibold transition-all flex items-center gap-1.5 ${
-                  isActive('/contact')
-                    ? 'text-brand-emerald bg-brand-softGreen'
-                    : 'text-brand-forest hover:text-brand-emerald hover:bg-brand-ivory/80'
-                }`}
-              >
-                <MessageSquare className="hidden h-3.5 w-3.5 text-brand-emerald xl:block" />
-                <span>Contact Us</span>
-              </Link>
-            </nav>
+            <form
+              className="hidden min-w-0 flex-1 md:block"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const query = headerQuery.trim();
+                if (!query) {
+                  setIsSearchOpen(true);
+                  return;
+                }
+                navigate(`/shop?search=${encodeURIComponent(query)}`);
+              }}
+            >
+              <label className="relative block">
+                <span className="sr-only">Search products</span>
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted" />
+                <input
+                  value={headerQuery}
+                  onChange={(event) => setHeaderQuery(event.target.value)}
+                  placeholder="Search equipment, supplies, or brands"
+                  className="h-11 w-full rounded-[10px] border border-brand-border bg-white pl-10 pr-4 text-sm text-brand-navy outline-none placeholder:text-brand-muted focus:border-brand-navy"
+                />
+              </label>
+            </form>
 
             {/* RIGHT: Search, Wishlist & Cart */}
             <div className="header-tools flex shrink-0 items-center gap-0.5 sm:gap-1.5">
@@ -281,28 +196,19 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden xl:flex items-center gap-2 w-44 px-3 py-2 rounded-full border border-brand-stone bg-brand-ivory text-brand-muted text-sm"
-                title="Search products"
-              >
-                <Search className="w-4 h-4" />
-                <span>Search products...</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsSearchOpen(true)}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-forest xl:hidden"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-forest md:hidden"
                 aria-label="Search products"
               >
                 <Search className="w-5 h-5" />
               </button>
-              <Link to="/account" className="hidden sm:flex p-2 rounded-full text-brand-forest hover:bg-brand-ivory" title="Account">
+              <Link to="/account" className="flex h-10 w-10 items-center justify-center rounded-full text-brand-forest hover:bg-brand-ivory" title="Account" aria-label="Account">
                 <User className="w-5 h-5" />
               </Link>
 
               {/* Wishlist */}
               <Link
                 to="/wishlist"
-                className="relative hidden h-11 w-11 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite hover:text-brand-vermilion sm:flex"
+                className="relative flex h-10 w-10 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite hover:text-brand-vermilion"
                 title="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -317,7 +223,7 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsCartDrawerOpen(true)}
-                className="relative hidden h-11 w-11 items-center justify-center rounded-full text-brand-forest hover:bg-brand-ivory sm:inline-flex"
+                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-forest hover:bg-brand-ivory"
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-5 h-5" />
@@ -332,7 +238,7 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite lg:hidden"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite lg:hidden"
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={isMobileMenuOpen}
               >
@@ -342,6 +248,68 @@ export const Header: React.FC = () => {
             </div>
 
           </div>
+
+          <nav className="mt-3 hidden items-center justify-between gap-2 border-t border-brand-border/80 pt-2 text-[13px] font-semibold text-brand-navy lg:flex" aria-label="Primary desktop">
+            <Link
+              to="/#home"
+              onClick={handleLogoClick}
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 ${
+                isActive('/') && location.pathname === '/' ? 'bg-brand-emerald text-brand-navy' : 'hover:text-brand-goldInk'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/shop"
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/shop') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}
+            >
+              Shop
+            </Link>
+            <div className="group relative">
+              <Link to="/categories" className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/categories') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+                Categories
+                <ChevronDown className="h-3.5 w-3.5" />
+              </Link>
+              <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="grid w-[28rem] grid-cols-2 gap-1 rounded-2xl border border-brand-border bg-white p-2 shadow-card">
+                  {categories.filter((category) => category.productCount > 0).map((category) => (
+                    <Link key={category.id} to={`/shop?category=${category.id}`} className="rounded-lg px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-ivory">
+                      {category.name}
+                    </Link>
+                  ))}
+                  <Link to="/categories" className="col-span-2 rounded-lg px-3 py-2 text-sm font-semibold text-brand-goldInk">
+                    View all categories
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <Link to="/resources" className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/resources') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+                Resources
+                <ChevronDown className="h-3.5 w-3.5" />
+              </Link>
+              <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="w-56 rounded-2xl border border-brand-border bg-white p-2 shadow-card">
+                  <Link to="/resources/blogs" className="block rounded-lg px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-ivory">Articles</Link>
+                  <Link to="/resources/buying-guides" className="block rounded-lg px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-ivory">Buying guides</Link>
+                  <Link to="/resources/manuals" className="block rounded-lg px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-ivory">Manuals</Link>
+                  <Link to="/resources/faqs" className="block rounded-lg px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-ivory">FAQs</Link>
+                </div>
+              </div>
+            </div>
+            <Link to="/bulk-orders" className={`whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/bulk-orders') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+              Bulk Orders
+            </Link>
+            <Link to="/about" className={`whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/about') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+              About Us
+            </Link>
+            <Link to="/why-us" className={`whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/why-us') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+              Why Us
+            </Link>
+            <Link to="/contact" className={`whitespace-nowrap rounded-full px-3 py-1.5 ${isActive('/contact') ? 'text-brand-goldInk' : 'hover:text-brand-goldInk'}`}>
+              Contact Us
+            </Link>
+          </nav>
         </div>
 
         {/* Mobile Dropdown Menu Drawer */}
@@ -373,7 +341,19 @@ export const Header: React.FC = () => {
                 }`}
               >
                 <Store className="w-4 h-4 text-brand-emerald" />
-                <span>Shop Catalogue</span>
+                <span>Shop</span>
+              </Link>
+
+              <Link
+                to="/categories"
+                className={`flex items-center gap-2.5 min-h-11 rounded-xl px-3.5 py-2.5 text-sm font-bold transition-colors ${
+                  isActive('/categories')
+                    ? 'text-brand-emerald bg-brand-softGreen'
+                    : 'text-brand-forest hover:bg-brand-softGreen'
+                }`}
+              >
+                <Store className="w-4 h-4 text-brand-emerald" />
+                <span>Categories</span>
               </Link>
 
               <Link

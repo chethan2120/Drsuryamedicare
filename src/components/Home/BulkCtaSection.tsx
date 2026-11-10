@@ -1,75 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FileSpreadsheet, ArrowRight, MessageCircle, Building2, CheckCircle2 } from 'lucide-react';
 import { storeConfig } from '../../config/storeConfig';
+
+const buyers = ['Hospitals', 'Clinics', 'Diagnostic centres', 'Laboratories', 'Nursing homes'];
 
 export const BulkCtaSection: React.FC = () => {
   return (
-    <section data-surface="navy" className="py-16 sm:py-20 bg-brand-navy border-b border-brand-border/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-brand-navy p-8 text-white shadow-card sm:p-12">
-          <div className="absolute top-0 left-0 right-0 h-px bg-brand-gold/80" />
-
-          <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-gold/40 text-[11px] font-semibold tracking-[0.14em] uppercase text-brand-gold">
-              <Building2 className="w-4 h-4 text-brand-ivory" />
-              <span>INSTITUTIONAL TENDER & WHOLESALE DESK</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight leading-tight">
-              Order in bulk
-            </h2>
-
-            <p className="text-sm sm:text-base text-brand-warmWhite/90 leading-relaxed font-normal">
-              Share your requirements and explore a convenient quotation process for healthcare institutions and businesses. Get custom volume pricing, GST invoices, and dedicated relationship manager support.
-            </p>
-
-            {/* Checklist highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="flex items-center gap-2 text-xs text-brand-warmWhite/90">
-                <CheckCircle2 className="w-4 h-4 text-brand-ivory flex-shrink-0" />
-                <span>Tiered Volume Pricing</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-brand-warmWhite/90">
-                <CheckCircle2 className="w-4 h-4 text-brand-ivory flex-shrink-0" />
-                <span>Official GST Tax Invoices</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-brand-warmWhite/90">
-                <CheckCircle2 className="w-4 h-4 text-brand-ivory flex-shrink-0" />
-                <span>Priority Logistics Dispatch</span>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Link
-                to="/bulk-orders"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-brand-warmWhite hover:bg-white text-brand-forest font-bold text-sm shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
-              >
-                <FileSpreadsheet className="w-4 h-4 text-brand-emerald" />
-                <span>Request a Bulk Quote</span>
-                <ArrowRight className="w-4 h-4 text-brand-forest" />
-              </Link>
-
-              <a
-                href={`https://wa.me/${storeConfig.whatsappNumber}?text=${encodeURIComponent('Hello Dr Surya Medicare, I want to discuss a bulk medical supplies requirement for my organisation.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-white font-semibold text-sm border border-white/25 hover:bg-white/10 transition-colors"
-              >
-                <MessageCircle className="w-4 h-4 text-brand-ivory" />
-                <span>Chat with Institutional Desk</span>
-              </a>
-            </div>
+    <section className="bg-brand-navy py-14 text-brand-ivory sm:py-16">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+        <div className="lg:col-span-7">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-emerald">Institutional supply</p>
+          <h2 className="mt-2 font-heading text-3xl font-bold leading-tight sm:text-4xl">
+            Your trusted partner for complete healthcare supplies
+          </h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-brand-ivory/80 sm:text-base">
+            Send a product list with quantities. The desk replies with a quotation for clinics, hospitals, and other institutional buyers.
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {buyers.map((buyer) => (
+              <li key={buyer} className="rounded-full border border-white/15 px-3 py-1 text-xs">
+                {buyer}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link to="/bulk-orders" className="inline-flex min-h-11 items-center justify-center rounded-[10px] bg-brand-emerald px-5 text-sm font-semibold text-brand-navy">
+              Bulk Order Enquiry
+            </Link>
+            <Link to="/bulk-orders" className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 px-5 text-sm font-semibold">
+              Request a Quote
+            </Link>
+            <Link to="/contact" className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 px-5 text-sm font-semibold">
+              Contact Sales
+            </Link>
           </div>
+          <p className="mt-4 text-xs text-brand-ivory/70">
+            Sales desk: {storeConfig.supportPhone} · {storeConfig.supportEmail}
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-2xl bg-white lg:col-span-5">
           <img
             src="/products/oxygen-concentrator.jpg"
-            alt="Medical oxygen concentrator from the catalogue"
-            className="mx-auto h-56 w-full max-w-sm rounded-2xl object-cover shadow-card sm:h-64 lg:h-72 lg:max-w-none"
-            style={{ filter: 'brightness(0.9) contrast(1.05)' }}
+            alt="Oxygen concentrator from the catalogue"
+            className="h-64 w-full object-contain p-4 sm:h-72"
           />
-          </div>
         </div>
       </div>
     </section>

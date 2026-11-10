@@ -17,7 +17,6 @@ import {
   Truck,
   CheckCircle2,
   AlertCircle,
-  Star,
   Plus,
   Minus,
   MapPin,
@@ -152,7 +151,7 @@ export const ProductDetailsPage: React.FC = () => {
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
                   }}
-                  className="h-full w-full cursor-zoom-in object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full cursor-zoom-in object-contain object-center p-4"
                   onClick={() => setIsZoomModalOpen(true)}
                 />
 
@@ -193,7 +192,7 @@ export const ProductDetailsPage: React.FC = () => {
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
                       }}
-                      className="w-full h-full object-cover rounded-lg"
+                      className="h-full w-full rounded-lg object-contain p-1"
                     />
                     <span className="absolute bottom-1 right-1 text-[9px] font-bold bg-brand-forest/80 text-white px-1 rounded">
                       {idx === 0 ? 'Front' : idx === 1 ? 'Angle' : idx === 2 ? 'Detail' : 'Pack'}
@@ -229,17 +228,10 @@ export const ProductDetailsPage: React.FC = () => {
                 </h1>
 
                 {/* Rating & Brand */}
-                <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
-                  <div className="flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200/60">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <span className="font-bold text-brand-forest">{product.rating}</span>
-                    <span className="text-brand-muted text-[11px]">({product.reviewCount} clinical reviews)</span>
-                  </div>
-
+                <div className="flex flex-wrap items-center gap-4 pt-1 text-xs">
                   <span className="text-brand-muted">
                     Brand: <span className="font-bold text-brand-forest">{product.brand}</span>
                   </span>
-
                   <span className="text-brand-muted">
                     Unit: <span className="font-bold text-brand-forest">1 {product.unit}</span>
                   </span>
@@ -274,15 +266,28 @@ export const ProductDetailsPage: React.FC = () => {
 
                 {/* Stock Status */}
                 <div className="pt-2">
-                  {product.stockStatus === 'in_stock' ? (
-                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200/60">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      <span>In Stock — Ready for Same Day Dispatch ({product.stockCount} {product.unit}s available)</span>
+                  {product.stockStatus === 'in_stock' && (
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-goldInk bg-brand-mist px-3 py-1.5 rounded-xl">
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>In stock · {product.stockCount} {product.unit}s listed</span>
                     </div>
-                  ) : (
-                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200/60">
-                      <AlertCircle className="w-4 h-4 text-amber-600" />
-                      <span>Limited Stock — Only {product.stockCount} {product.unit}s remaining</span>
+                  )}
+                  {product.stockStatus === 'low_stock' && (
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-800 bg-amber-50 px-3 py-1.5 rounded-xl">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>Low stock · {product.stockCount} {product.unit}s listed</span>
+                    </div>
+                  )}
+                  {product.stockStatus === 'out_of_stock' && (
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-muted bg-brand-stone px-3 py-1.5 rounded-xl">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>Out of stock</span>
+                    </div>
+                  )}
+                  {product.stockStatus === 'enquiry_only' && (
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-navy bg-brand-cool px-3 py-1.5 rounded-xl">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>Available on quotation</span>
                     </div>
                   )}
                 </div>

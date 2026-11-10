@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { storeConfig } from '../../config/storeConfig';
+import { formatINR } from '../../utils/formatters';
 import { categories } from '../../data/categories';
 import {
   Activity,
@@ -8,7 +9,6 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  ShieldCheck,
   Truck,
   FileText,
   Clock,
@@ -21,44 +21,34 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Feature Highlights Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pb-12 border-b border-brand-emerald/30">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12 border-b border-white/10">
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
-              <ShieldCheck className="w-5 h-5 text-brand-ivory" />
-            </div>
-            <div>
-              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Verified Medical Grade</h4>
-              <p className="text-xs text-brand-ivory/70 mt-0.5">Strict quality control on all clinical consumables and instruments.</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
               <MessageCircle className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
-              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Direct WhatsApp Ordering</h4>
-              <p className="text-xs text-brand-ivory/70 mt-0.5">Seamless cart transmission to verified WhatsApp business desk.</p>
+              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">WhatsApp ordering</h4>
+              <p className="text-xs text-brand-ivory/70 mt-0.5">Carts are sent to {storeConfig.whatsappDisplayNumber}.</p>
             </div>
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
               <Truck className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
-              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Pan-India Express Dispatch</h4>
-              <p className="text-xs text-brand-ivory/70 mt-0.5">Reliable insured freight to clinics, hospitals and residences.</p>
+              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Delivery window</h4>
+              <p className="text-xs text-brand-ivory/70 mt-0.5">{storeConfig.shipping.estimatedDays}. Free from {formatINR(storeConfig.shipping.freeThreshold)}.</p>
             </div>
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
               <FileText className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
-              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Institutional Quotations</h4>
-              <p className="text-xs text-brand-ivory/70 mt-0.5">Volume discounts, GST invoices and hospital procurement support.</p>
+              <h4 className="font-heading font-bold text-sm text-brand-warmWhite">Institutional quotations</h4>
+              <p className="text-xs text-brand-ivory/70 mt-0.5">Send a quantity list from the bulk enquiry form.</p>
             </div>
           </div>
         </div>
@@ -230,14 +220,13 @@ export const Footer: React.FC = () => {
               </a>
             </span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-brand-ivory/60">
-            <span>Privacy Policy</span>
-            <span>•</span>
-            <span>Wholesale Terms</span>
-            <span>•</span>
-            <span>Return Guidelines</span>
-            <span>•</span>
-            <span>Drug License: {storeConfig.drugLicenseDemo} (Demo)</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px]">
+            <Link to="/policies/shipping" className="hover:text-white">Shipping</Link>
+            <Link to="/policies/returns" className="hover:text-white">Returns</Link>
+            <Link to="/policies/privacy" className="hover:text-white">Privacy</Link>
+            <Link to="/policies/terms" className="hover:text-white">Terms</Link>
+            <Link to="/about" className="hover:text-white">About</Link>
+            <Link to="/contact" className="hover:text-white">Support</Link>
           </div>
         </div>
 

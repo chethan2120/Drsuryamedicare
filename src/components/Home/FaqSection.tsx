@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { storeConfig } from '../../config/storeConfig';
+import { formatINR } from '../../utils/formatters';
 
 interface FaqItem {
   question: string;
@@ -9,27 +11,27 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     question: 'How does the WhatsApp order process work?',
-    answer: 'Simply add your chosen medical equipment or consumables to your cart, fill in your delivery details (Name, Mobile, Address, PIN Code), and click "Proceed to WhatsApp Order". Our system generates a neatly formatted, itemised order summary directly into WhatsApp. Our healthcare sales desk immediately checks live inventory, calculates applicable delivery charges or GST tax benefits, and shares the formal invoice for payment confirmation.',
+    answer: `Add products to the cart, enter the delivery details, and send the order on WhatsApp to ${storeConfig.whatsappDisplayNumber}. That message starts the order. It is not a completed payment.`,
   },
   {
-    question: 'Are all displayed products genuine and medically certified?',
-    answer: 'Yes. All products listed on Dr Surya Medicare are sourced directly from verified biomedical manufacturers and authorized distributors. Our diagnostic devices meet CE/ISO standards, and consumables are manufactured in GMP-compliant facilities with batch sterilization certifications.',
+    question: 'Are certifications shown for every product?',
+    answer: 'Only the details stored on each product are shown, including its description and specification table. This site does not add certificates that are not already in that product record.',
   },
   {
-    question: 'What is the delivery timeline across Indian PIN codes?',
-    answer: 'Orders within major metro hubs (such as Bengaluru, Chennai, Hyderabad, Mumbai, and Delhi NCR) are typically delivered within 1 to 3 business days. For Tier-2 and regional clinic locations, priority courier delivery takes 3 to 5 business days. Heavy equipment (such as ICU beds and suction machines) is dispatched via insured surface logistics.',
+    question: 'What is the delivery timeline?',
+    answer: `The listed delivery window is ${storeConfig.shipping.estimatedDays}. Orders from ${formatINR(storeConfig.shipping.freeThreshold)} are sent without the standard delivery fee of ${formatINR(storeConfig.shipping.standardFee)}.`,
   },
   {
-    question: 'How do institutional bulk purchases and quotations work?',
-    answer: 'For hospitals, diagnostic labs, and corporate clinics requiring bulk supplies or scheduled monthly deliveries, we provide special tiered institutional pricing. Submit a quotation request via our Bulk Orders page or send your procurement list directly on WhatsApp to receive a formal RFQ quotation within 2 to 4 business hours.',
+    question: 'How do institutional bulk purchases work?',
+    answer: 'Use the bulk enquiry form to send organisation details, products, and quantities. The sales desk replies with a quotation. There is no automatic volume price on the product page.',
   },
   {
-    question: 'What payment modes are accepted once the order is submitted?',
-    answer: 'Once our representative confirms your order on WhatsApp, payment can be completed via NEFT/RTGS bank transfer, UPI (Google Pay, PhonePe, Paytm), corporate net banking, or verified Cash-on-Delivery (COD) for eligible serviceable PIN codes.',
+    question: 'How is payment handled?',
+    answer: 'Payment is confirmed with the sales desk after the WhatsApp order is sent. This website does not take card payments.',
   },
   {
-    question: 'Can regulated or prescription supplies be ordered online?',
-    answer: 'Prescription-only items and regulated clinical pharmaceuticals are strictly enquiry-only and require valid institutional drug license verification prior to processing.',
+    question: 'Can prescription supplies be ordered from the catalogue?',
+    answer: 'Products marked for quotation stay on the enquiry form. The desk confirms what can be supplied before dispatch.',
   },
 ];
 

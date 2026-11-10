@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, Tag, ArrowRight, ShieldCheck } from 'lucide-react';
+import { productMatchesQuery } from '../../utils/search';
 import { products } from '../../data/products';
 import { Product } from '../../types';
 import { formatINR } from '../../utils/formatters';
@@ -50,15 +51,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
       setResults([]);
       return;
     }
-    const q = query.toLowerCase();
-    const matched = products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.sku.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.categoryName.toLowerCase().includes(q) ||
-        p.searchKeywords.some((k) => k.toLowerCase().includes(q))
-    );
+    const matched = products.filter((product) => productMatchesQuery(product, query));
     setResults(matched.slice(0, 6));
   }, [query]);
 
@@ -160,7 +153,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                         <img
                           src={product.images[0]}
                           alt={product.name}
-                          className="w-full h-full object-cover rounded"
+                          className="h-full w-full rounded object-contain"
                         />
                       </div>
                       <div>

@@ -253,6 +253,64 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         })}
       </div>
 
+      <div className="space-y-2 border-t border-brand-border pt-4">
+        <h4 className="text-xs font-bold uppercase tracking-wide text-brand-navy">Brand</h4>
+        <div className="max-h-40 space-y-1 overflow-y-auto pr-1">
+          {Array.from(new Set(products.map((product) => product.brand)))
+            .sort()
+            .map((brand) => {
+              const selected = filters.brands.includes(brand);
+              return (
+                <label key={brand} className="flex cursor-pointer items-center gap-2 text-xs text-brand-body">
+                  <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={() =>
+                      onFilterChange({
+                        ...filters,
+                        brands: selected ? filters.brands.filter((item) => item !== brand) : [...filters.brands, brand],
+                      })
+                    }
+                  />
+                  {brand}
+                </label>
+              );
+            })}
+        </div>
+      </div>
+
+      <div className="space-y-2 border-t border-brand-border pt-4">
+        <h4 className="text-xs font-bold uppercase tracking-wide text-brand-navy">Price</h4>
+        {(
+          [
+            ['all', 'Any price'],
+            ['under-500', 'Under ₹500'],
+            ['500-2000', '₹500 – ₹2,000'],
+            ['2000-10000', '₹2,000 – ₹10,000'],
+            ['above-10000', 'Above ₹10,000'],
+          ] as const
+        ).map(([value, label]) => (
+          <label key={value} className="flex cursor-pointer items-center gap-2 text-xs text-brand-body">
+            <input
+              type="radio"
+              name="price-range"
+              checked={filters.priceRange === value}
+              onChange={() => onFilterChange({ ...filters, priceRange: value })}
+            />
+            {label}
+          </label>
+        ))}
+      </div>
+
+      <label className="flex cursor-pointer items-center gap-2 border-t border-brand-border pt-4 text-xs font-semibold text-brand-navy">
+        <input
+          type="checkbox"
+          checked={filters.inStockOnly}
+          onChange={() => onFilterChange({ ...filters, inStockOnly: !filters.inStockOnly })}
+        />
+        Available to order
+      </label>
+
       {isMobile && (
         <div className="pt-4 border-t border-brand-border">
           <button

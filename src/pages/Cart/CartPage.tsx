@@ -200,7 +200,7 @@ export const CartPage: React.FC = () => {
                         <img
                           src={item.product.images[0]}
                           alt={item.product.name}
-                          className="w-16 h-16 object-cover rounded-lg"
+                          className="h-16 w-16 rounded-lg bg-white object-contain p-1"
                         />
                       </div>
                       <div className="min-w-0">

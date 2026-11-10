@@ -1,98 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Heart, ShoppingBag } from 'lucide-react';
+import { ArrowRight, Building2, IndianRupee, Phone, Truck } from 'lucide-react';
 import { categories } from '../../data/categories';
 import { products } from '../../data/products';
-import { initialBlogs } from '../../data/resourcesData';
 import { storeConfig } from '../../config/storeConfig';
-import { useCart } from '../../context/CartContext';
-import { useWishlist } from '../../context/WishlistContext';
 import { formatINR } from '../../utils/formatters';
-import { Product } from '../../types';
-import { B2BTrustRibbon } from '../../components/Home/B2BTrustRibbon';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { BulkCtaSection } from '../../components/Home/BulkCtaSection';
-import { TestimonialsSection } from '../../components/Home/TestimonialsSection';
 import { FaqSection } from '../../components/Home/FaqSection';
 import { BestsellersSection } from '../../components/Home/BestsellersSection';
 import { HeroShowcase } from '../../components/Home/HeroShowcase';
 
-const departmentIds = [
-  'diagnostic-equipment',
-  'ppe',
-  'surgical-instruments',
-  'monitoring-devices',
-  'medical-consumables',
-  'hospital-furniture',
-];
-
-const featuredIds = ['dsm-therm-01', 'dsm-oxi-01', 'dsm-gloves-01', 'dsm-mask-01'];
-
-const stockLabel: Record<Product['stockStatus'], string> = {
-  in_stock: 'In stock',
-  low_stock: 'Low stock',
-  out_of_stock: 'Out of stock',
-  enquiry_only: 'Enquiry only',
-};
-
-const CatalogueCard: React.FC<{ product: Product }> = ({ product }) => {
-  const { addToCart } = useCart();
-  const { toggleWishlist, isInWishlist } = useWishlist();
-  const saved = isInWishlist(product.id);
-
-  return (
-    <article className="group flex h-full flex-col">
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-white">
-        <Link to={`/product/${product.id}`} className="block h-full">
-          <img
-            src={product.images[0]}
-            alt={product.name}
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-          />
-        </Link>
-        <button
-          type="button"
-          aria-label={saved ? 'Remove from wishlist' : 'Add to wishlist'}
-          onClick={() => toggleWishlist(product)}
-          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-brand-forest shadow-xs"
-        >
-          <Heart className={`h-4 w-4 ${saved ? 'fill-brand-teal text-brand-teal' : ''}`} />
-        </button>
-      </div>
-      <Link to={`/product/${product.id}`} className="mt-3 line-clamp-2 text-sm font-semibold leading-snug text-brand-forest">
-        {product.name}
-      </Link>
-      <p className="mt-1 text-xs text-brand-muted">{stockLabel[product.stockStatus]}</p>
-      <div className="mt-auto flex items-end justify-between gap-2 pt-3">
-        <div>
-          <p className="font-heading text-base font-bold text-brand-forest">{formatINR(product.price)}</p>
-          {product.originalPrice && product.originalPrice > product.price && (
-            <p className="text-xs text-brand-muted line-through">{formatINR(product.originalPrice)}</p>
-          )}
-        </div>
-        <button
-          type="button"
-          onClick={() => addToCart(product, 1)}
-          disabled={product.stockStatus === 'out_of_stock'}
-          className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-brand-forest px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-teal disabled:opacity-40"
-        >
-          <ShoppingBag className="h-3.5 w-3.5" />
-          Add
-        </button>
-      </div>
-    </article>
-  );
-};
-
 export const HomePage: React.FC = () => {
-  const departments = departmentIds
-    .map((id) => categories.find((category) => category.id === id))
-    .filter((category) => category !== undefined);
-  const featured = featuredIds
-    .map((id) => products.find((product) => product.id === id))
-    .filter((product) => product !== undefined);
-  const stories = initialBlogs.filter((post) => !post.isDraft).slice(0, 4);
-  const [activeStory, setActiveStory] = useState(0);
-  const story = stories[activeStory];
+  const shopCategories = categories.filter((category) => category.productCount > 0);
+  const featured = products.filter((product) => product.isFeatured).slice(0, 4);
+  const featuredIds = new Set(featured.map((product) => product.id));
+  const equipment = products
+    .filter((product) => product.productType === 'Medical Equipment' && !featuredIds.has(product.id))
+    .slice(0, 4);
+  const brands = useMemo(() => {
+    const grouped = new Map<string, { name: string; count: number; image: string }>();
+    products.forEach((product) => {
+      const current = grouped.get(product.brand);
+      if (current) current.count += 1;
+      else grouped.set(product.brand, { name: product.brand, count: 1, image: product.images[0] });
+    });
+    return Array.from(grouped.values()).sort((a, b) => b.count - a.count).slice(0, 8);
+  }, []);
 
   useEffect(() => {
     if (window.location.hash === '#home') {
@@ -101,19 +35,19 @@ export const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div id="home" className="bg-brand-ivory text-brand-charcoal">
-      <section data-surface="cream" className="relative overflow-x-clip bg-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:pb-14 lg:pt-12">
+    <div id="home" className="bg-white text-brand-charcoal">
+      <section className="relative overflow-x-clip bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-8 pt-7 sm:px-6 sm:pb-10 sm:pt-9 lg:grid-cols-12 lg:gap-14 lg:px-8 lg:pb-12 lg:pt-12">
           <div className="min-w-0 lg:col-span-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk sm:tracking-[0.2em]">
-              Premium medical supplies
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">
+              Healthcare marketplace
             </p>
             <h1 className="hero-title mt-3 font-heading font-bold tracking-tight text-brand-navy">
-              Stronger Supply.
-              <span className="hero-accent block">Steadier Care.</span>
+              Clinical supplies,
+              <span className="hero-accent block">ready to order.</span>
             </h1>
             <p className="mt-4 max-w-md text-[15px] leading-relaxed text-brand-body sm:text-base">
-              Equipment, surgical supplies, and daily medicines for clinics and hospitals across India.
+              Equipment, surgical supplies, and daily medicines for clinics, hospitals, and home care across India.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -125,44 +59,145 @@ export const HomePage: React.FC = () => {
               </Link>
               <Link
                 to="/bulk-orders"
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-[10px] border border-brand-navy/25 bg-white px-5 py-3 text-sm font-semibold text-brand-navy transition-colors hover:border-brand-navy sm:w-auto"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-[10px] border border-brand-navy/25 bg-white px-5 py-3 text-sm font-semibold text-brand-navy sm:w-auto"
               >
                 Bulk Order Enquiry
               </Link>
             </div>
           </div>
-
           <div className="min-w-0 lg:col-span-7">
             <HeroShowcase />
           </div>
         </div>
       </section>
 
-      <section data-surface="white" className="border-t border-brand-stone/80 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-          <div data-reveal className="mb-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk sm:tracking-[0.2em]">Shop by department</p>
-            <h2 className="section-title mt-1">Explore Our Categories</h2>
+      <section className="border-y border-brand-border bg-brand-ivory" aria-label="Supply details">
+        <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-3 px-4 py-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+          <li className="flex items-center gap-3">
+            <Truck className="h-5 w-5 shrink-0 text-brand-goldInk" />
+            <span>
+              <span className="block text-sm font-semibold text-brand-navy">India delivery</span>
+              <span className="block text-xs text-brand-muted">{storeConfig.shipping.estimatedDays}</span>
+            </span>
+          </li>
+          <li className="flex items-center gap-3">
+            <IndianRupee className="h-5 w-5 shrink-0 text-brand-goldInk" />
+            <span>
+              <span className="block text-sm font-semibold text-brand-navy">Free delivery</span>
+              <span className="block text-xs text-brand-muted">Orders from {formatINR(storeConfig.shipping.freeThreshold)}</span>
+            </span>
+          </li>
+          <li className="flex items-center gap-3">
+            <Building2 className="h-5 w-5 shrink-0 text-brand-goldInk" />
+            <span>
+              <span className="block text-sm font-semibold text-brand-navy">Institutional supply</span>
+              <span className="block text-xs text-brand-muted">Quantity quotations</span>
+            </span>
+          </li>
+          <li className="flex items-center gap-3">
+            <Phone className="h-5 w-5 shrink-0 text-brand-goldInk" />
+            <span>
+              <span className="block text-sm font-semibold text-brand-navy">Customer support</span>
+              <span className="block text-xs text-brand-muted">{storeConfig.supportPhone}</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section className="border-t border-brand-border bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Shop by category</p>
+              <h2 className="section-title mt-1">Find the department you supply</h2>
+            </div>
+            <Link to="/categories" className="inline-flex min-h-11 shrink-0 items-center gap-1 text-sm font-semibold text-brand-navy">
+              View All Categories
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-          <div className="reveal-stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {departments.map((category) => (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+            {shopCategories.map((category) => (
               <Link
                 key={category.id}
                 to={`/shop?category=${category.id}`}
-                className="group flex h-full flex-col rounded-2xl bg-brand-cool p-3"
+                className="flex h-full flex-col rounded-2xl border border-brand-border bg-brand-cool p-3"
               >
-                <div className="h-28 overflow-hidden rounded-xl bg-white">
+                <div className="flex h-28 items-center justify-center overflow-hidden rounded-xl bg-white">
                   <img
                     src={category.image}
                     alt=""
                     loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-contain object-center p-2"
                   />
                 </div>
-                <span className="mt-3 flex h-10 items-start gap-1 text-sm font-semibold leading-5 text-brand-navy">
-                  <span className="line-clamp-2 flex-1">{category.name}</span>
-                  <ArrowRight className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-teal" />
+                <span className="mt-3 line-clamp-2 min-h-10 text-sm font-semibold leading-5 text-brand-navy">
+                  {category.name}
+                </span>
+                <span className="mt-1 text-xs text-brand-muted">{category.productCount} products</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-ivory">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="section-title">Featured products</h2>
+              <p className="mt-1 text-sm text-brand-muted">Marked in the current catalogue.</p>
+            </div>
+            <Link to="/shop" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand-navy">
+              View all
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {featured.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="section-title">Popular medical equipment</h2>
+              <p className="mt-1 text-sm text-brand-muted">Devices listed under medical equipment.</p>
+            </div>
+            <Link to="/shop?productType=Medical%20Equipment" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand-navy">
+              Browse equipment
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {equipment.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-brand-border bg-brand-cool">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <h2 className="section-title">Shop by brand</h2>
+          <p className="mt-1 text-sm text-brand-muted">Brands already listed on products in this catalogue.</p>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {brands.map((brand) => (
+              <Link
+                key={brand.name}
+                to={`/shop?brand=${encodeURIComponent(brand.name)}`}
+                className="flex items-center gap-3 rounded-2xl border border-brand-border bg-white p-3"
+              >
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand-ivory">
+                  <img src={brand.image} alt="" className="h-full w-full object-contain p-1" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-semibold text-brand-navy">{brand.name}</span>
+                  <span className="text-xs text-brand-muted">{brand.count} products</span>
                 </span>
               </Link>
             ))}
@@ -170,139 +205,71 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <section data-surface="mist" className="bg-brand-mist">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-          <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="section-title">Featured Products</h2>
-              <p className="mt-1 text-sm text-brand-muted">From the current catalogue.</p>
-            </div>
-            <Link to="/shop" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand-navy">
-              View All Products
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid items-stretch gap-6 lg:grid-cols-12">
-            <div className="reveal-stagger grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5 lg:col-span-8">
-              {featured.map((product) => (
-                <CatalogueCard key={product.id} product={product} />
-              ))}
-            </div>
-            <aside className="relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-3xl bg-brand-navy p-6 text-white lg:col-span-4">
-              <img
-                src="/products/oxygen-concentrator.jpg"
-                alt=""
-                className="pointer-events-none absolute -bottom-6 -right-4 w-40 object-contain opacity-90"
-              />
-              <div className="relative">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-gold">Institutional supply</p>
-                <h3 className="mt-3 max-w-[16rem] font-heading text-2xl font-bold leading-tight">
-                  Need bulk medical supplies?
-                </h3>
-                <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-white/75">
-                  Share your requirements for a quotation, GST invoice, and institutional pricing.
-                </p>
-              </div>
-              <Link
-                to="/bulk-orders"
-                className="relative mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-brand-teal px-4 py-2.5 text-sm font-semibold text-white"
-              >
-                Enquire Now
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </aside>
-          </div>
-        </div>
-      </section>
+      <BestsellersSection />
+      <BulkCtaSection />
 
-      <section data-surface="cream" className="bg-brand-ivory">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:gap-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:px-8">
-          <div className="lg:col-span-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-teal">Why Dr Surya Medicare</p>
-            <h2 className="section-title mt-2">
-              A supply desk for clinics, hospitals, and home care.
-            </h2>
-            <Link to="/why-us" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-teal">
-              Read why us
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:px-8">
+          <div className="lg:col-span-4">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Why this desk</p>
+            <h2 className="section-title mt-2">A straightforward way to order and enquire.</h2>
           </div>
-          <dl className="reveal-stagger grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            <div className="rounded-2xl bg-white p-4">
-              <dt className="font-heading text-base font-bold text-brand-navy">Direct WhatsApp ordering</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-charcoal/75">Carts go to the business WhatsApp desk at {storeConfig.whatsappDisplayNumber}.</dd>
+          <dl className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
+            <div className="rounded-2xl border border-brand-border p-4">
+              <dt className="font-heading font-bold text-brand-navy">WhatsApp ordering</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+                The cart is sent to {storeConfig.whatsappDisplayNumber}. Payment is confirmed with the desk, not on this page.
+              </dd>
             </div>
-            <div className="rounded-2xl bg-white p-4">
-              <dt className="font-heading text-base font-bold text-brand-navy">Pan-India dispatch</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-charcoal/75">Standard delivery is {storeConfig.shipping.estimatedDays}. Free delivery above {formatINR(storeConfig.shipping.freeThreshold)}.</dd>
+            <div className="rounded-2xl border border-brand-border p-4">
+              <dt className="font-heading font-bold text-brand-navy">Delivery</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+                Listed transit is {storeConfig.shipping.estimatedDays}. Delivery is free from {formatINR(storeConfig.shipping.freeThreshold)}.
+              </dd>
             </div>
-            <div className="rounded-2xl bg-white p-4">
-              <dt className="font-heading text-base font-bold text-brand-navy">Institutional quotations</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-charcoal/75">Bulk enquiries include GST invoicing and a dedicated procurement conversation.</dd>
+            <div className="rounded-2xl border border-brand-border p-4">
+              <dt className="font-heading font-bold text-brand-navy">Institutional quotes</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+                Hospitals, clinics, laboratories, and nursing homes can send a quantity list from the bulk enquiry form.
+              </dd>
             </div>
-            <div className="rounded-2xl bg-white p-4">
-              <dt className="font-heading text-base font-bold text-brand-navy">A real person on support</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-brand-charcoal/75">{storeConfig.supportPhone} · {storeConfig.supportEmail}</dd>
+            <div className="rounded-2xl border border-brand-border p-4">
+              <dt className="font-heading font-bold text-brand-navy">A person on the phone</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-brand-body">
+                {storeConfig.supportPhone} · {storeConfig.supportEmail}
+              </dd>
             </div>
           </dl>
         </div>
       </section>
 
-      <section data-surface="white" className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div data-reveal className="mb-6 flex flex-col items-start gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk sm:tracking-[0.2em]">Resources</p>
-              <h2 className="section-title mt-1">From the knowledge desk</h2>
-            </div>
-            <Link to="/resources/blogs" className="inline-flex min-h-11 items-center text-sm font-semibold text-brand-navy">
-              All articles
+      <FaqSection />
+
+      <section className="bg-brand-navy text-brand-ivory">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+          <div>
+            <h2 className="font-heading text-2xl font-bold">Need help choosing a product?</h2>
+            <p className="mt-1 text-sm text-brand-ivory/80">
+              Call the desk or send the list you already have.
+            </p>
+          </div>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <a
+              href={`tel:${storeConfig.supportPhone}`}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] bg-brand-emerald px-5 text-sm font-semibold text-brand-navy"
+            >
+              <Phone className="h-4 w-4" />
+              {storeConfig.supportPhone}
+            </a>
+            <Link
+              to="/contact"
+              className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 px-5 text-sm font-semibold"
+            >
+              Contact sales
             </Link>
           </div>
-          {stories.length === 0 || !story ? (
-            <p className="rounded-2xl bg-[#F4F1EB] px-5 py-8 text-sm text-brand-muted">No published articles yet.</p>
-          ) : (
-            <div className="grid overflow-hidden rounded-3xl border border-brand-stone bg-[#F7F5F1] lg:min-h-[460px] lg:grid-cols-12">
-              <div className="flex flex-col lg:col-span-5">
-                {stories.map((item, index) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveStory(index)}
-                    className={`flex flex-1 items-start gap-3 border-b border-brand-stone/80 px-5 py-4 text-left last:border-b-0 ${
-                      index === activeStory ? 'bg-white' : 'hover:bg-white/70'
-                    }`}
-                  >
-                    <span className="mt-0.5 font-heading text-sm font-bold text-brand-teal">0{index + 1}</span>
-                    <span>
-                      <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-muted">{item.category}</span>
-                      <span className="mt-1 block font-heading text-sm font-bold leading-snug text-brand-navy">{item.title}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <div className="bg-white lg:col-span-7">
-                <img src={story.featuredImage} alt="" loading="lazy" decoding="async" className="h-48 w-full object-cover sm:h-64" />
-                <div className="p-4 sm:p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-teal">{story.category}</p>
-                  <h3 className="mt-2 font-heading text-xl font-bold leading-tight text-brand-navy sm:text-2xl">{story.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-brand-charcoal/80">{story.excerpt}</p>
-                  <Link to={`/resources/blogs/${story.slug}`} className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-teal">
-                    Read article
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
-
-      <BestsellersSection />
-      <B2BTrustRibbon />
-      <BulkCtaSection />
-      <TestimonialsSection />
-      <FaqSection />
     </div>
   );
 };

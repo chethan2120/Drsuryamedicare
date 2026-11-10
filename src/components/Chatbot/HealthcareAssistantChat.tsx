@@ -658,18 +658,16 @@ export const HealthcareAssistantChat: React.FC = () => {
       {/* Official WhatsApp at the bottom, Chatbot button above it!  */}
       {/* Both disappear when Cart Drawer is open                   */}
       {/* ========================================================= */}
-      <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
+      <div className="pointer-events-none fixed bottom-[4.75rem] right-3 z-40 flex flex-col items-end gap-3 lg:bottom-6 lg:right-6">
         
         {/* 1. Healthcare Assistant Chatbot Launcher (ABOVE WhatsApp) */}
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="px-4 py-2.5 rounded-full bg-brand-forest hover:bg-brand-emerald text-white flex items-center gap-2 shadow-modal hover:scale-105 active:scale-95 transition-all font-bold text-xs border border-brand-emerald/40"
+          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-navy text-white shadow-modal"
           aria-label="Toggle Healthcare Assistant"
         >
-          <MessageSquare className="w-4 h-4 text-brand-ivory" />
-          <span className="hidden sm:inline">Healthcare Assistant</span>
-          {isOpen ? <X className="w-3.5 h-3.5 ml-1" /> : <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
+          {isOpen ? <X className="h-5 w-5" /> : <MessageSquare className="h-5 w-5" />}
         </button>
 
         {/* 2. Official WhatsApp Button (AT THE VERY BOTTOM) */}
@@ -677,12 +675,12 @@ export const HealthcareAssistantChat: React.FC = () => {
           href={`https://wa.me/${storeConfig.whatsappNumber}?text=${encodeURIComponent('Hello Dr Surya Medicare, I would like to place an order or ask a question regarding medical supplies.')}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center shadow-modal hover:scale-108 active:scale-95 transition-all group"
+          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-modal"
           title="Chat directly on WhatsApp"
           aria-label="Official WhatsApp Support"
         >
           {/* Official WhatsApp SVG Logo */}
-          <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-8 sm:h-8 fill-white">
+          <svg viewBox="0 0 24 24" className="h-6 w-6 fill-white">
             <path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.276-.1-.477-.15-.678.15-.2.301-.778.98-.954 1.18-.175.201-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.495-.896-.799-1.501-1.786-1.677-2.087-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.201-.301.301-.502.1-.201.05-.376-.025-.526-.075-.15-.678-1.634-.929-2.239-.245-.589-.494-.509-.678-.519-.176-.01-.376-.01-.577-.01-.201 0-.527.075-.803.376s-1.054 1.03-1.054 2.511 1.079 2.912 1.23 3.113c.15.201 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.635.722.23 1.378.197 1.898.12.58-.088 1.78-.727 2.03-1.43.251-.703.251-1.306.176-1.431-.076-.126-.277-.202-.578-.352zM12 21.6c-1.8 0-3.565-.486-5.111-1.408l-.367-.218-3.799.996 1.014-3.703-.239-.38A9.555 9.555 0 0 1 2.4 12c0-5.293 4.307-9.6 9.6-9.6 5.293 0 9.6 4.307 9.6 9.6 0 5.293-4.307 9.6-9.6 9.6zM12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.16 1.594 5.968L0 24l6.236-1.636A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
           </svg>
         </a>
@@ -691,7 +689,7 @@ export const HealthcareAssistantChat: React.FC = () => {
 
       {/* Interactive Chatbot Modal Window */}
       {isOpen && (
-        <div className="fixed bottom-36 right-4 z-50 flex h-[500px] max-h-[75vh] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-brand-border bg-brand-warmWhite shadow-modal animate-fade-in sm:bottom-28 sm:right-6">
+        <div className="fixed bottom-[8.75rem] right-3 z-50 flex h-[min(500px,70vh)] w-[min(380px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-3xl border border-brand-border bg-brand-warmWhite shadow-modal animate-fade-in lg:right-6">
           
           {/* Chat Header */}
           <div className="bg-brand-forest text-brand-ivory p-4 flex items-center justify-between border-b border-brand-emerald/30">

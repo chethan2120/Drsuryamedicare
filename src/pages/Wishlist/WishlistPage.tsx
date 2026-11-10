@@ -80,7 +80,7 @@ export const WishlistPage: React.FC = () => {
                     <img
                       src={product.images[0]}
                       alt={product.name}
-                      className="w-full h-full object-cover rounded-lg hover:scale-105 transition-transform"
+                      className="h-full w-full rounded-lg object-contain"
                     />
                   </Link>
                   <button

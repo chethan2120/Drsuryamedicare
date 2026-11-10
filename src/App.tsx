@@ -28,6 +28,7 @@ import { BuyingGuideDetailPage } from './pages/Resources/BuyingGuideDetailPage';
 import { ProductKnowledgePage } from './pages/Resources/ProductKnowledgePage';
 import { ProductKnowledgeDetailPage } from './pages/Resources/ProductKnowledgeDetailPage';
 import { FaqsPage } from './pages/Resources/FaqsPage';
+import { PolicyPage } from './pages/Policies/PolicyPage';
 import { AdminResourcesPage } from './pages/Admin/AdminResourcesPage';
 import { HealthcareAssistantChat } from './components/Chatbot/HealthcareAssistantChat';
 import { CheckCircle2, X } from 'lucide-react';
@@ -115,7 +116,7 @@ function AppContent() {
       <ScrollToTop />
       <RevealController />
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 pb-16 lg:pb-0">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
@@ -128,6 +129,10 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/why-us" element={<WhyUsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/policies/shipping" element={<PolicyPage kind="shipping" />} />
+          <Route path="/policies/returns" element={<PolicyPage kind="returns" />} />
+          <Route path="/policies/privacy" element={<PolicyPage kind="privacy" />} />
+          <Route path="/policies/terms" element={<PolicyPage kind="terms" />} />
 
           {/* Resources Knowledge Hub Routes */}
           <Route path="/resources" element={<ResourcesLandingPage />} />

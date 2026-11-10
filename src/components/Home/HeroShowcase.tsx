@@ -41,7 +41,7 @@ export const HeroShowcase: React.FC = () => {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-brand-cool sm:aspect-[5/4] lg:aspect-[16/10]">
+      <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-brand-cool">
         {slides.map((slide, index) => (
           <img
             key={slide.src}
@@ -49,15 +49,15 @@ export const HeroShowcase: React.FC = () => {
             alt={slide.alt}
             width={1280}
             height={800}
-            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
-              index === active ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ease-out ${
+              index === active ? 'opacity-100' : 'pointer-events-none opacity-0'
             }`}
             draggable={false}
           />
         ))}
 
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-brand-navy/45 to-transparent px-3 py-3 sm:px-4">
-          <div className="flex items-center gap-2">
+        <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2 sm:bottom-4 sm:left-4">
+          <div className="flex items-center gap-1.5 rounded-full bg-brand-navy/35 px-2.5 py-2">
             {slides.map((slide, index) => (
               <button
                 key={slide.src}
@@ -65,8 +65,8 @@ export const HeroShowcase: React.FC = () => {
                 aria-label={`Show slide ${index + 1}`}
                 aria-current={index === active ? 'true' : undefined}
                 onClick={() => go(index)}
-                className={`h-2.5 rounded-full transition-all ${
-                  index === active ? 'w-7 bg-brand-emerald' : 'w-2.5 bg-white/80'
+                className={`h-2 rounded-full transition-all ${
+                  index === active ? 'w-6 bg-brand-emerald' : 'w-2 bg-white/85'
                 }`}
               />
             ))}
