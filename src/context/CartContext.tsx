@@ -7,7 +7,7 @@ interface CartContextType {
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
-  clearCart: () => void;
+  clearCart: (notice?: string) => void;
   totalItemsCount: number;
   subtotal: number;
   shippingFee: number;
@@ -92,9 +92,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   };
 
-  const clearCart = () => {
+  const clearCart = (notice?: string) => {
     setItems([]);
-    showToast('Cart cleared');
+    showToast(typeof notice === 'string' ? notice : 'Cart cleared');
   };
 
   const totalItemsCount = items.reduce((total, item) => total + item.quantity, 0);

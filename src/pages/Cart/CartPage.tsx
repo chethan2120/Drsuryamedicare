@@ -111,9 +111,8 @@ export const CartPage: React.FC = () => {
     );
 
     setIsOrderGenerated(true);
-
-    // Open WhatsApp in new tab
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    clearCart('Order sent on WhatsApp. Your cart is clear.');
   };
 
   if (items.length === 0) {
@@ -161,7 +160,7 @@ export const CartPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={clearCart}
+              onClick={() => clearCart()}
               className="text-xs font-semibold text-brand-muted hover:text-brand-vermilion flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />

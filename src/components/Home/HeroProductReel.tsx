@@ -21,7 +21,7 @@ const ReelTile: React.FC<ReelProps & { eager?: boolean }> = ({ product, onSelect
   <button
     type="button"
     onClick={() => onSelect(product)}
-    className={`hero-reel-tile shrink-0 rounded-2xl p-2 text-left shadow-card transition-shadow hover:shadow-card-hover ${className}`}
+    className={`hero-reel-tile relative shrink-0 overflow-hidden rounded-2xl text-left shadow-card transition-shadow hover:shadow-card-hover ${className}`}
     aria-label={`Preview ${product.name}`}
   >
     <img
@@ -31,9 +31,10 @@ const ReelTile: React.FC<ReelProps & { eager?: boolean }> = ({ product, onSelect
       height={160}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
-      className="aspect-square w-full object-contain"
+      className="aspect-square w-full object-cover"
       draggable={false}
     />
+    <span className="hero-reel-shade" aria-hidden="true" />
   </button>
 );
 
