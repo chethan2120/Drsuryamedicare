@@ -60,7 +60,7 @@ export const TopSellingConsumablesSection: React.FC = () => {
                 <img
                   src={item.images[0]}
                   alt={item.name}
-                  className="w-full h-full object-contain p-3"
+                  className="h-full w-full object-cover object-center"
                 />
                 {item.discountPercent && item.discountPercent > 0 && (
                   <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-brand-forest text-brand-gold text-[11px] font-semibold">

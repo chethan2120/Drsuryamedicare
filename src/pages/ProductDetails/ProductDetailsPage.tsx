@@ -145,14 +145,14 @@ export const ProductDetailsPage: React.FC = () => {
             {/* LEFT: Product Image Gallery */}
             <div className="lg:col-span-6 space-y-4">
               {/* Main Viewport */}
-              <div className="relative aspect-square w-full rounded-2xl bg-brand-ivory/40 p-4 border border-brand-border/70 overflow-hidden flex items-center justify-center group">
+              <div className="group relative aspect-square w-full overflow-hidden rounded-2xl border border-brand-border/70 bg-brand-cool">
                 <img
                   src={product.images[selectedImageIndex]}
                   alt={`${product.name} view ${selectedImageIndex + 1}`}
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
                   }}
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105 cursor-zoom-in"
+                  className="h-full w-full cursor-zoom-in object-cover object-center transition-transform duration-300 group-hover:scale-105"
                   onClick={() => setIsZoomModalOpen(true)}
                 />
 

@@ -79,7 +79,7 @@ export const CartPage: React.FC = () => {
         particleCount: 80,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#046A38', '#F9EBD7', '#E34222'],
+        colors: ['#14D993', '#0B0F0E', '#F2F5F3'],
       });
     } catch {
       // safe fallback

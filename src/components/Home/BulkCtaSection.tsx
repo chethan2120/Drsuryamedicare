@@ -7,7 +7,7 @@ export const BulkCtaSection: React.FC = () => {
   return (
     <section data-surface="navy" className="py-16 sm:py-20 bg-brand-navy border-b border-brand-border/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-2xl bg-[#16384A] text-white p-8 sm:p-12 overflow-hidden shadow-card border border-brand-gold/30">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-brand-navy p-8 text-white shadow-card sm:p-12">
           <div className="absolute top-0 left-0 right-0 h-px bg-brand-gold/80" />
 
           <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">

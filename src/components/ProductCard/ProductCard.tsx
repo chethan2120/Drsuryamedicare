@@ -65,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
             }}
-            className={`w-full h-full object-contain p-4 transition-all duration-500 transform ${
+            className={`h-full w-full object-cover object-center transition-all duration-500 ${
               isHovered && product.images.length > 1 ? 'opacity-0 scale-95' : 'opacity-100 group-hover:scale-105'
             }`}
             loading="lazy"
@@ -77,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
               }}
-              className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500 transform ${
+              className={`absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 ${
                 isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
               }`}
               loading="lazy"

@@ -6,8 +6,8 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
-    color: #263640;
-    background-color: #F8F6EF;
+    color: #0B0F0E;
+    background-color: #FFFFFF;
     overflow-x: clip;
     max-width: 100%;
   }
@@ -15,8 +15,8 @@
   body {
     overflow-x: clip;
     max-width: 100%;
-    color: #263640;
-    background-color: #F8F6EF;
+    color: #0B0F0E;
+    background-color: #FFFFFF;
     font-size: 16px;
     line-height: 1.6;
   }
@@ -29,7 +29,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
-    color: #102C3C;
+    color: #0B0F0E;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
@@ -39,12 +39,12 @@
   }
 
   ::selection {
-    background: #147D72;
-    color: #FFFFFF;
+    background: #14D993;
+    color: #0B0F0E;
   }
 
   :focus-visible {
-    outline: 2px solid #147D72;
+    outline: 2px solid #14D993;
     outline-offset: 2px;
   }
 }
@@ -60,8 +60,12 @@
   }
 
   .hero-title {
-    font-size: clamp(2.15rem, 4.8vw, 3.75rem);
+    font-size: clamp(2.35rem, 4.6vw, 4.25rem);
     line-height: 0.98;
+  }
+
+  .hero-accent {
+    color: #14D993;
   }
 
   .section-copy {
@@ -138,16 +142,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8F6EF;
+  background: #F7FAF8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #102C3C;
+  background: #0B0F0E;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #147D72;
+  background: #14D993;
 }
 
 @media (max-width: 1023px) {
@@ -323,11 +327,52 @@
 .site-header[data-tone="navy"] .header-tools button,
 .site-header[data-tone="navy"] .brand-lockup,
 .site-header[data-tone="navy"] .brand-lockup span {
-  color: #F8F6EF;
+  color: #F2F5F3;
 }
 
 .site-header[data-tone="navy"] nav a.bg-brand-teal {
-  color: #ffffff;
+  color: #0B0F0E;
+}
+
+.text-brand-teal,
+.text-brand-emerald,
+.text-brand-emeraldLight,
+.hover\:text-brand-emerald:hover,
+.hover\:text-brand-teal:hover {
+  color: #067A52;
+}
+
+.bg-brand-navy .text-brand-emerald,
+.bg-brand-forest .text-brand-emerald,
+.bg-brand-navy .text-brand-teal,
+.bg-brand-forest .text-brand-teal,
+footer .text-brand-emerald,
+footer .text-brand-teal,
+[data-surface="navy"] .text-brand-emerald,
+[data-surface="navy"] .text-brand-teal {
+  color: #14D993;
+}
+
+.bg-brand-teal,
+.bg-brand-emerald,
+.bg-brand-emeraldLight,
+.bg-brand-emeraldDark,
+.hover\:bg-brand-emerald:hover,
+.hover\:bg-brand-teal:hover,
+.hover\:bg-brand-emeraldDark:hover,
+.hover\:bg-brand-emeraldLight:hover {
+  color: #0B0F0E;
+}
+
+.bg-brand-emerald .text-brand-ivory,
+.bg-brand-teal .text-brand-ivory,
+.bg-brand-emerald .text-white,
+.bg-brand-teal .text-white {
+  color: #0B0F0E;
+}
+
+.hero-accent {
+  color: #14D993;
 }
 
 @media (prefers-reduced-motion: reduce) {

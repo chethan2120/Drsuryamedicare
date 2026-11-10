@@ -122,11 +122,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
           
           {/* LEFT: Image Gallery & Previews */}
           <div className="flex flex-col space-y-4">
-            <div className="relative aspect-square w-full rounded-2xl bg-brand-ivory/40 p-4 border border-brand-border/60 flex items-center justify-center overflow-hidden">
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-brand-border/60 bg-brand-cool">
               <img
                 src={currentImage}
                 alt={product.name}
-                className="w-full h-full object-contain rounded-xl transition-transform duration-300 hover:scale-105"
+                className="h-full w-full object-cover object-center transition-transform duration-300 hover:scale-105"
               />
 
               {product.discountPercent && product.discountPercent > 0 && (

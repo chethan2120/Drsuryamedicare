@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Headphones,
-  Heart,
-  MessageCircle,
-  ShoppingBag,
-  Truck,
-} from 'lucide-react';
+import { ArrowRight, Heart, ShoppingBag } from 'lucide-react';
 import { categories } from '../../data/categories';
 import { products } from '../../data/products';
 import { initialBlogs } from '../../data/resourcesData';
@@ -21,7 +14,7 @@ import { BulkCtaSection } from '../../components/Home/BulkCtaSection';
 import { TestimonialsSection } from '../../components/Home/TestimonialsSection';
 import { FaqSection } from '../../components/Home/FaqSection';
 import { BestsellersSection } from '../../components/Home/BestsellersSection';
-import { HeroProductReel } from '../../components/Home/HeroProductReel';
+import { HeroShowcase } from '../../components/Home/HeroShowcase';
 
 const departmentIds = [
   'diagnostic-equipment',
@@ -53,7 +46,7 @@ const CatalogueCard: React.FC<{ product: Product }> = ({ product }) => {
           <img
             src={product.images[0]}
             alt={product.name}
-            className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
           />
         </Link>
         <button
@@ -109,53 +102,38 @@ export const HomePage: React.FC = () => {
 
   return (
     <div id="home" className="bg-brand-ivory text-brand-charcoal">
-      <section data-surface="cream" className="relative overflow-x-clip bg-brand-ivory">
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pb-6 pt-5 sm:gap-8 sm:px-6 sm:pb-8 sm:pt-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:items-center lg:grid-cols-12 lg:px-8 lg:pb-8 lg:pt-10">
+      <section data-surface="cream" className="relative overflow-x-clip bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:pb-14 lg:pt-12">
           <div className="min-w-0 lg:col-span-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-teal sm:tracking-[0.22em]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk sm:tracking-[0.2em]">
               Premium medical supplies
             </p>
             <h1 className="hero-title mt-3 font-heading font-bold tracking-tight text-brand-navy">
-              Stronger Supply.<br />
-              <span className="text-brand-teal">Steadier Care.</span>
+              Stronger Supply.
+              <span className="hero-accent block">Steadier Care.</span>
             </h1>
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-brand-charcoal/80 sm:text-base">
-              The catalogue clinics and hospitals order from when a ward cannot wait on equipment, surgical supplies, or daily medicines.
+            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-brand-body sm:text-base">
+              Equipment, surgical supplies, and daily medicines for clinics and hospitals across India.
             </p>
-            <div className="mt-6 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/shop"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-teal px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-emeraldDark"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-brand-emerald px-5 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-emeraldDark sm:w-auto"
               >
-                <ShoppingBag className="h-4 w-4" />
                 Shop Now
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/bulk-orders"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-brand-navy/15 bg-white px-5 py-3 text-sm font-semibold text-brand-navy transition-colors hover:border-brand-teal"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-[10px] border border-brand-navy/25 bg-white px-5 py-3 text-sm font-semibold text-brand-navy transition-colors hover:border-brand-navy sm:w-auto"
               >
                 Bulk Order Enquiry
               </Link>
             </div>
-            <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-brand-charcoal/75 sm:mt-6">
-              <span className="inline-flex items-center gap-2">
-                <MessageCircle className="h-4 w-4 text-brand-teal" />
-                WhatsApp ordering
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Truck className="h-4 w-4 text-brand-teal" />
-                Pan-India dispatch
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Headphones className="h-4 w-4 text-brand-teal" />
-                {storeConfig.supportPhone}
-              </span>
-            </div>
           </div>
 
           <div className="min-w-0 lg:col-span-7">
-            <HeroProductReel />
+            <HeroShowcase />
           </div>
         </div>
       </section>
@@ -173,13 +151,13 @@ export const HomePage: React.FC = () => {
                 to={`/shop?category=${category.id}`}
                 className="group flex h-full flex-col rounded-2xl bg-brand-cool p-3"
               >
-                <div className="flex h-28 items-center justify-center">
+                <div className="h-28 overflow-hidden rounded-xl bg-white">
                   <img
                     src={category.image}
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    className="h-full max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <span className="mt-3 flex h-10 items-start gap-1 text-sm font-semibold leading-5 text-brand-navy">
