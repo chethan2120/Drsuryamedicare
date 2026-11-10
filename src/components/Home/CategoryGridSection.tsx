@@ -11,7 +11,7 @@ export const CategoryGridSection: React.FC = () => {
   const remainingCount = Math.max(0, categories.length - 8);
 
   return (
-    <section className="py-12 sm:py-16 bg-brand-warmWhite border-b border-brand-border/60 overflow-hidden">
+    <section className="py-14 sm:py-16 bg-brand-ivory border-b border-brand-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header with Scroll Reveal */}
@@ -27,7 +27,7 @@ export const CategoryGridSection: React.FC = () => {
               <Layers className="w-3.5 h-3.5" />
               <span>Comprehensive Healthcare Solutions</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-brand-forest">
+            <h2 className="section-title">
               Explore Our Healthcare Categories
             </h2>
             <p className="text-xs sm:text-sm text-brand-muted mt-1 max-w-xl">

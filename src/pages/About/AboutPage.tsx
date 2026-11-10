@@ -269,6 +269,35 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-3xl bg-white p-6 sm:p-8">
+            <h3 className="font-heading text-2xl font-bold text-brand-navy">How a facility orders</h3>
+            <ol className="mt-4 space-y-3 text-sm leading-relaxed text-brand-muted">
+              <li>Browse the catalogue by department, or search by product name and SKU.</li>
+              <li>Add the pack size you need. Prices on the card are the listed catalogue prices.</li>
+              <li>At checkout, the name, mobile number, and address saved under Account are filled in automatically. You can change them for that delivery.</li>
+              <li>The cart is sent to the WhatsApp desk at {storeConfig.whatsappDisplayNumber}. That order is stored in your account history on this device.</li>
+              <li>Standard dispatch is {storeConfig.shipping.estimatedDays}. Delivery is free above ₹{storeConfig.shipping.freeThreshold.toLocaleString('en-IN')}.</li>
+            </ol>
+          </div>
+          <div className="rounded-3xl bg-brand-ivory p-6 sm:p-8">
+            <h3 className="font-heading text-2xl font-bold text-brand-navy">Who the catalogue is built for</h3>
+            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-brand-muted">
+              <li>Clinics and nursing homes restocking diagnostics, PPE, and daily medicines.</li>
+              <li>Hospital stores raising a bulk quotation for consumables or ward equipment.</li>
+              <li>Laboratories ordering instruments and routine supplies.</li>
+              <li>Home-care teams buying a monitor, a wheelchair, or a short list of consumables.</li>
+            </ul>
+            <p className="mt-6 text-sm leading-relaxed text-brand-navy">
+              {storeConfig.businessName}<br />
+              {storeConfig.address.line1}<br />
+              {storeConfig.address.line2}<br />
+              {storeConfig.address.city}, {storeConfig.address.state} {storeConfig.address.pincode}<br />
+              {storeConfig.supportPhone} · {storeConfig.supportEmail}
+            </p>
+          </div>
+        </div>
+
         {/* Final CTA Banner */}
         <div className="rounded-3xl bg-gradient-to-r from-brand-forest to-brand-emerald p-8 sm:p-12 text-white text-center space-y-5 shadow-card">
           <h3 className="text-2xl sm:text-3xl font-heading font-extrabold text-brand-warmWhite">

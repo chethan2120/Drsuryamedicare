@@ -37,6 +37,15 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       return;
@@ -73,10 +82,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-brand-forest/40 backdrop-blur-sm animate-fade-in">
+    <div
+      className="fixed inset-0 z-[80] flex items-start justify-center bg-brand-forest/40 px-4 pt-16 backdrop-blur-sm animate-fade-in sm:pt-24"
+      onMouseDown={onClose}
+    >
       <div
-        className="w-full max-w-2xl bg-brand-warmWhite rounded-2xl shadow-modal border border-brand-border overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-brand-border bg-brand-warmWhite shadow-modal"
+        onMouseDown={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
         <form onSubmit={handleSearchSubmit} className="relative flex items-center border-b border-brand-border p-4 bg-white">
@@ -86,8 +98,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by product name, SKU (e.g. DSM-DIA-101), brand or category..."
-            className="w-full text-base sm:text-lg bg-transparent border-none outline-none text-brand-forest placeholder:text-brand-muted/70 font-medium"
+            placeholder="Search by product name, SKU, brand or category"
+            className="min-w-0 flex-1 border-none bg-transparent text-base font-medium text-brand-forest outline-none placeholder:text-brand-muted/70 sm:text-lg"
           />
           {query && (
             <button

@@ -5,22 +5,20 @@ import { storeConfig } from '../../config/storeConfig';
 
 export const BulkCtaSection: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 bg-brand-ivory border-b border-brand-border/60">
+    <section data-surface="navy" className="py-16 sm:py-20 bg-brand-navy border-b border-brand-border/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl bg-brand-emerald text-brand-warmWhite p-8 sm:p-12 lg:p-16 overflow-hidden shadow-card">
-          
-          {/* Subtle background graphics */}
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-brand-emeraldLight/30 blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 w-72 h-72 rounded-full bg-brand-forest/40 blur-xl pointer-events-none" />
+        <div className="relative rounded-2xl bg-[#16384A] text-white p-8 sm:p-12 overflow-hidden shadow-card border border-brand-gold/30">
+          <div className="absolute top-0 left-0 right-0 h-px bg-brand-gold/80" />
 
-          <div className="relative z-10 max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs font-semibold text-brand-ivory">
+          <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-gold/40 text-[11px] font-semibold tracking-[0.14em] uppercase text-brand-gold">
               <Building2 className="w-4 h-4 text-brand-ivory" />
               <span>INSTITUTIONAL TENDER & WHOLESALE DESK</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
-              Need Medical Supplies in Bulk?
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight leading-tight">
+              Order in bulk
             </h2>
 
             <p className="text-sm sm:text-base text-brand-warmWhite/90 leading-relaxed font-normal">
@@ -58,15 +56,20 @@ export const BulkCtaSection: React.FC = () => {
                 href={`https://wa.me/${storeConfig.whatsappNumber}?text=${encodeURIComponent('Hello Dr Surya Medicare, I want to discuss a bulk medical supplies requirement for my organisation.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 backdrop-blur-sm transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-white font-semibold text-sm border border-white/25 hover:bg-white/10 transition-colors"
               >
                 <MessageCircle className="w-4 h-4 text-brand-ivory" />
                 <span>Chat with Institutional Desk</span>
               </a>
             </div>
-
           </div>
-
+          <img
+            src="/products/oxygen-concentrator.jpg"
+            alt="Medical oxygen concentrator from the catalogue"
+            className="mx-auto h-56 w-full max-w-sm rounded-2xl object-cover shadow-card sm:h-64 lg:h-72 lg:max-w-none"
+            style={{ filter: 'brightness(0.9) contrast(1.05)' }}
+          />
+          </div>
         </div>
       </div>
     </section>

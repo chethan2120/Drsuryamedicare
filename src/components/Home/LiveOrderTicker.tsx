@@ -90,19 +90,16 @@ export const LiveOrderTicker: React.FC = () => {
   const currentOrder = liveOrders[currentIndex];
 
   return (
-    <div className="fixed bottom-16 sm:bottom-6 left-3 sm:left-6 z-40 max-w-[340px] sm:max-w-[380px] pointer-events-auto">
+    <div className="hidden lg:block fixed bottom-6 left-6 z-40 max-w-[340px] pointer-events-auto">
       <div
-        className={`bg-white/95 backdrop-blur-md rounded-2xl border border-brand-emerald/25 shadow-2xl p-3 sm:p-3.5 flex items-start gap-3 transition-all duration-500 transform ${
+        className={`bg-white rounded-2xl border border-brand-border shadow-card p-3.5 flex items-start gap-3 transition-all duration-500 transform ${
           isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-95'
         }`}
       >
         {/* Pulsing Verified Order Badge */}
         <div className="relative flex-shrink-0 w-10 h-10 rounded-xl bg-brand-softGreen text-brand-emerald flex items-center justify-center">
           <Building2 className="w-5 h-5 text-brand-emerald" />
-          <span className="absolute -top-1 -right-1 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-600" />
-          </span>
+          <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-brand-emerald ring-2 ring-white" />
         </div>
 
         {/* Order Details */}

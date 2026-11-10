@@ -658,7 +658,7 @@ export const HealthcareAssistantChat: React.FC = () => {
       {/* Official WhatsApp at the bottom, Chatbot button above it!  */}
       {/* Both disappear when Cart Drawer is open                   */}
       {/* ========================================================= */}
-      <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
+      <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
         
         {/* 1. Healthcare Assistant Chatbot Launcher (ABOVE WhatsApp) */}
         <button
@@ -691,7 +691,7 @@ export const HealthcareAssistantChat: React.FC = () => {
 
       {/* Interactive Chatbot Modal Window */}
       {isOpen && (
-        <div className="fixed bottom-36 sm:bottom-28 right-4 sm:right-6 z-50 w-[92vw] sm:w-[380px] h-[500px] max-h-[75vh] bg-brand-warmWhite rounded-3xl shadow-modal border border-brand-border flex flex-col overflow-hidden animate-fade-in">
+        <div className="fixed bottom-36 right-4 z-50 flex h-[500px] max-h-[75vh] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-brand-border bg-brand-warmWhite shadow-modal animate-fade-in sm:bottom-28 sm:right-6">
           
           {/* Chat Header */}
           <div className="bg-brand-forest text-brand-ivory p-4 flex items-center justify-between border-b border-brand-emerald/30">

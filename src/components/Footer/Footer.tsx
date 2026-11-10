@@ -17,13 +17,13 @@ import {
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-brand-forest text-brand-ivory pt-16 pb-8 border-t border-brand-emerald/30">
+    <footer data-surface="navy" className="bg-brand-forest text-brand-ivory pt-14 pb-8 border-t-2 border-brand-gold/70">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Feature Highlights Bar */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pb-12 border-b border-brand-emerald/30">
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-brand-emerald/40 text-brand-ivory flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
               <ShieldCheck className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-brand-emerald/40 text-brand-ivory flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
               <MessageCircle className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-brand-emerald/40 text-brand-ivory flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
               <Truck className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-brand-emerald/40 text-brand-ivory flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/10 text-brand-gold flex items-center justify-center flex-shrink-0">
               <FileText className="w-5 h-5 text-brand-ivory" />
             </div>
             <div>

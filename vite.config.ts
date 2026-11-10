@@ -7,6 +7,9 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    watch: {
+      ignored: ['**/public/products/**', '**/public/banners/**'],
+    },
   },
   preview: {
     port: 3000,

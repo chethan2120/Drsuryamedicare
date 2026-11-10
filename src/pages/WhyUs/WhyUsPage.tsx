@@ -28,7 +28,8 @@ export const WhyUsPage: React.FC = () => {
         <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-brand-emerald/20 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-80 h-80 rounded-full bg-brand-darkForest/60 blur-2xl pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+          <div className="space-y-6 lg:col-span-7">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-emerald text-brand-ivory text-xs font-bold uppercase tracking-wider">
             <ShieldCheck className="w-4 h-4 text-brand-ivory" />
             <span>THE DR SURYA ADVANTAGE</span>
@@ -60,6 +61,15 @@ export const WhyUsPage: React.FC = () => {
               <MessageSquare className="w-4 h-4 text-[#25D366]" />
               <span>Connect on WhatsApp</span>
             </a>
+          </div>
+          </div>
+          <div className="lg:col-span-5">
+            <img
+              src="/products/stethoscope.jpg"
+              alt="Cardiology stethoscope from the Dr Surya Medicare catalogue"
+              className="aspect-[4/3] w-full rounded-3xl object-cover shadow-card"
+              style={{ filter: 'brightness(0.88) contrast(1.08)' }}
+            />
           </div>
         </div>
       </section>
@@ -159,6 +169,36 @@ export const WhyUsPage: React.FC = () => {
             </p>
           </div>
 
+        </div>
+      </section>
+
+      <section className="bg-brand-ivory py-14 sm:py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-teal">How an order moves</p>
+            <h2 className="mt-2 font-heading text-2xl font-bold text-brand-navy sm:text-3xl">From the catalogue to the ward, in four steps.</h2>
+            <ol className="mt-6 space-y-4 text-sm leading-relaxed text-brand-muted">
+              <li><span className="font-semibold text-brand-navy">1. Choose from the live catalogue.</span> Diagnostic devices, surgical instruments, consumables, PPE, furniture, respiratory care, and tablets are listed with the price and pack size already on the product page.</li>
+              <li><span className="font-semibold text-brand-navy">2. Send the cart on WhatsApp.</span> The desk at {storeConfig.whatsappDisplayNumber} receives the items, quantities, and the delivery details saved on your account.</li>
+              <li><span className="font-semibold text-brand-navy">3. Confirm the quotation.</span> Institutional orders can include a GST invoice. Bulk quantities are quoted from the bulk-order form, not guessed on the product card.</li>
+              <li><span className="font-semibold text-brand-navy">4. Dispatch.</span> Standard delivery is {storeConfig.shipping.estimatedDays}. Orders above {storeConfig.shipping.freeThreshold.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })} ship without the standard delivery fee.</li>
+            </ol>
+          </div>
+          <div className="rounded-3xl bg-white p-6 sm:p-8">
+            <h3 className="font-heading text-xl font-bold text-brand-navy">What the desk actually handles</h3>
+            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-brand-muted">
+              <li>Repeat clinic orders for gloves, masks, syringes, IV sets, gauze, and daily tablets.</li>
+              <li>Single-device orders such as a BP monitor, oximeter, thermometer, or stethoscope.</li>
+              <li>Ward equipment enquiries for beds, wheelchairs, walkers, and oxygen concentrators.</li>
+              <li>A saved name, mobile number, and delivery address so the next order does not start from a blank form.</li>
+              <li>A record of orders already sent, kept on this device under Account.</li>
+            </ul>
+            <p className="mt-6 text-sm text-brand-navy">
+              Support: {storeConfig.supportPhone}<br />
+              {storeConfig.supportEmail}<br />
+              {storeConfig.address.line1}, {storeConfig.address.city} {storeConfig.address.pincode}
+            </p>
+          </div>
         </div>
       </section>
 

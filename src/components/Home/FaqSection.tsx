@@ -41,7 +41,7 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-brand-warmWhite">
+    <section data-surface="white" className="py-16 sm:py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -49,7 +49,7 @@ export const FaqSection: React.FC = () => {
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Got Questions?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-heading font-extrabold text-brand-forest">
+          <h2 className="section-title">
             Frequently Asked Questions
           </h2>
           <p className="text-xs sm:text-sm text-brand-muted mt-1">

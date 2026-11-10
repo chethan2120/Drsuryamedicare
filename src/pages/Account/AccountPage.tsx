@@ -1,265 +1,189 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../context/WishlistContext';
-import { useRecentlyViewed } from '../../context/RecentlyViewedContext';
 import { formatINR } from '../../utils/formatters';
+import {
+  blankProfile,
+  loadOrders,
+  loadProfile,
+  saveProfile,
+  SavedOrder,
+} from '../../utils/customerStore';
+import { CustomerOrderDetails } from '../../types';
 import {
   User,
   MapPin,
-  Clock,
   Heart,
-  ShieldCheck,
   FileSpreadsheet,
   Building2,
-  CheckCircle2,
   Package,
 } from 'lucide-react';
 
 export const AccountPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'profile' | 'enquiries' | 'addresses'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'addresses'>('profile');
   const { wishlistCount } = useWishlist();
-  const { recentlyViewed } = useRecentlyViewed();
+  const [profile, setProfile] = useState<CustomerOrderDetails>(() => loadProfile() ?? blankProfile());
+  const [orders, setOrders] = useState<SavedOrder[]>(() => loadOrders());
+  const [savedNote, setSavedNote] = useState('');
 
-  // Demo user data
-  const user = {
-    name: 'Dr. Vikram Chandra',
-    qualification: 'MD (General Medicine)',
-    institution: 'Chandra Multispeciality Clinic',
-    email: 'dr.chandra@chandraclinic.in',
-    phone: '+91 98450 12345',
-    gstin: '29AABCC1234D1Z8',
+  const hasProfile = Boolean(profile.customerName.trim() || profile.phone.trim() || profile.deliveryAddress.trim());
+
+  const update = (patch: Partial<CustomerOrderDetails>) => {
+    setProfile((current) => ({ ...current, ...patch }));
+    setSavedNote('');
   };
 
-  const demoEnquiries = [
-    {
-      id: 'RFQ-DSM-8821',
-      date: '06 Nov 2026',
-      itemsCount: 4,
-      totalEstimate: 42500,
-      status: 'Quotation Dispatched via WhatsApp',
-      items: ['Digital BP Monitor (5 pcs)', 'OLED Pulse Oximeter (10 pcs)', 'Surgical Blades #11 (5 boxes)'],
-    },
-    {
-      id: 'RFQ-DSM-8610',
-      date: '28 Oct 2026',
-      itemsCount: 2,
-      totalEstimate: 18500,
-      status: 'Delivered & Invoice Closed',
-      items: ['Semi-Fowler Hospital Bed (1 unit)', 'Stainless Steel IV Stand (2 units)'],
-    },
-  ];
+  const handleSave = (event: React.FormEvent) => {
+    event.preventDefault();
+    saveProfile(profile);
+    setSavedNote('Saved on this device. The cart will use these details next time you order.');
+    setOrders(loadOrders());
+  };
 
   return (
-    <div className="bg-brand-warmWhite min-h-screen py-10">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header with Demo Badge */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-softGreen text-brand-emerald text-xs font-bold uppercase tracking-wider mb-2">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Client Dashboard (Demo Mode)</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-heading font-extrabold text-brand-forest">
-              Healthcare Institution Portal
-            </h1>
-            <p className="text-xs sm:text-sm text-brand-muted mt-0.5">
-              Manage saved procurement profiles, RFQ quotations, and clinic delivery addresses.
-            </p>
-          </div>
+    <div className="min-h-screen bg-brand-warmWhite py-10">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="font-heading text-2xl font-extrabold text-brand-forest sm:text-3xl">Your account</h1>
+          <p className="mt-1 text-sm text-brand-muted">
+            Save a name, mobile number, and delivery address. They fill the order form automatically, and every order you send is kept here.
+          </p>
         </div>
 
-        {/* 2-Column: Sidebar Tabs & Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          
-          {/* Sidebar */}
-          <div className="md:col-span-4 bg-white rounded-3xl border border-brand-border/80 p-5 shadow-card space-y-4">
-            <div className="flex items-center gap-3.5 pb-4 border-b border-brand-border">
-              <div className="w-12 h-12 rounded-2xl bg-brand-softGreen text-brand-emerald flex items-center justify-center font-bold text-lg">
-                <User className="w-6 h-6" />
+        <div className="grid items-start gap-8 md:grid-cols-12">
+          <div className="space-y-4 rounded-3xl border border-brand-border/80 bg-white p-5 shadow-card md:col-span-4">
+            <div className="flex items-center gap-3.5 border-b border-brand-border pb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-softGreen text-brand-emerald">
+                <User className="h-6 w-6" />
               </div>
-              <div>
-                <h3 className="font-heading font-bold text-sm text-brand-forest">{user.name}</h3>
-                <span className="text-xs text-brand-muted block">{user.institution}</span>
+              <div className="min-w-0">
+                <h3 className="truncate font-heading text-sm font-bold text-brand-forest">
+                  {profile.customerName.trim() || 'No name saved yet'}
+                </h3>
+                <span className="block truncate text-xs text-brand-muted">
+                  {profile.phone.trim() || 'Add a mobile number'}
+                </span>
               </div>
             </div>
 
             <nav className="space-y-1 text-xs">
-              <button
-                type="button"
-                onClick={() => setActiveTab('profile')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold flex items-center justify-between transition-colors ${
-                  activeTab === 'profile'
-                    ? 'bg-brand-emerald text-white shadow-xs'
-                    : 'text-brand-forest hover:bg-brand-ivory/60'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>Facility Profile</span>
-                </span>
+              <button type="button" onClick={() => setActiveTab('profile')} className={`flex min-h-11 w-full items-center gap-2 rounded-xl px-3.5 py-2.5 text-left font-bold ${activeTab === 'profile' ? 'bg-brand-emerald text-white' : 'text-brand-forest hover:bg-brand-ivory/60'}`}>
+                <Building2 className="h-4 w-4" /> Facility profile
               </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveTab('enquiries')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold flex items-center justify-between transition-colors ${
-                  activeTab === 'enquiries'
-                    ? 'bg-brand-emerald text-white shadow-xs'
-                    : 'text-brand-forest hover:bg-brand-ivory/60'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="w-4 h-4" />
-                  <span>Enquiry History</span>
-                </span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] bg-white/20 text-white font-mono">
-                  {demoEnquiries.length}
-                </span>
+              <button type="button" onClick={() => { setOrders(loadOrders()); setActiveTab('orders'); }} className={`flex min-h-11 w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-left font-bold ${activeTab === 'orders' ? 'bg-brand-emerald text-white' : 'text-brand-forest hover:bg-brand-ivory/60'}`}>
+                <span className="flex items-center gap-2"><FileSpreadsheet className="h-4 w-4" /> Order history</span>
+                <span className="rounded bg-white/20 px-1.5 py-0.5 font-mono text-[10px]">{orders.length}</span>
               </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveTab('addresses')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold flex items-center justify-between transition-colors ${
-                  activeTab === 'addresses'
-                    ? 'bg-brand-emerald text-white shadow-xs'
-                    : 'text-brand-forest hover:bg-brand-ivory/60'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  <span>Delivery Addresses</span>
-                </span>
+              <button type="button" onClick={() => setActiveTab('addresses')} className={`flex min-h-11 w-full items-center gap-2 rounded-xl px-3.5 py-2.5 text-left font-bold ${activeTab === 'addresses' ? 'bg-brand-emerald text-white' : 'text-brand-forest hover:bg-brand-ivory/60'}`}>
+                <MapPin className="h-4 w-4" /> Delivery address
               </button>
-
-              <Link
-                to="/wishlist"
-                className="w-full text-left px-3.5 py-2.5 rounded-xl font-bold flex items-center justify-between text-brand-forest hover:bg-brand-ivory/60 transition-colors"
-              >
-                <span className="flex items-center gap-2">
-                  <Heart className="w-4 h-4 text-brand-vermilion" />
-                  <span>Saved Wishlist</span>
-                </span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] bg-brand-ivory text-brand-forest font-mono">
-                  {wishlistCount}
-                </span>
+              <Link to="/wishlist" className="flex min-h-11 w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-left font-bold text-brand-forest hover:bg-brand-ivory/60">
+                <span className="flex items-center gap-2"><Heart className="h-4 w-4 text-brand-vermilion" /> Saved wishlist</span>
+                <span className="rounded bg-brand-ivory px-1.5 py-0.5 font-mono text-[10px] text-brand-forest">{wishlistCount}</span>
               </Link>
             </nav>
-
-            <div className="pt-3 border-t border-brand-border text-[11px] text-brand-muted">
-              Note: Backend authentication is simulated for client demonstration.
-            </div>
+            <p className="border-t border-brand-border pt-3 text-[11px] leading-relaxed text-brand-muted">
+              Details stay on this browser. They are not sent until you place an order.
+            </p>
           </div>
 
-          {/* Main Pane */}
-          <div className="md:col-span-8 bg-white rounded-3xl border border-brand-border/80 p-6 sm:p-8 shadow-card space-y-6">
-            
-            {/* 1. Facility Profile */}
+          <div className="rounded-3xl border border-brand-border/80 bg-white p-6 shadow-card sm:p-8 md:col-span-8">
             {activeTab === 'profile' && (
-              <div className="space-y-4">
-                <h3 className="font-heading font-bold text-lg text-brand-forest border-b border-brand-border pb-3">
-                  Registered Institutional Profile
-                </h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div className="p-3.5 rounded-2xl bg-brand-ivory/40 border border-brand-border">
-                    <span className="text-brand-muted block uppercase text-[10px] font-bold">Contact Name</span>
-                    <span className="font-bold text-sm text-brand-forest mt-0.5 block">{user.name}</span>
-                    <span className="text-brand-muted">{user.qualification}</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-brand-ivory/40 border border-brand-border">
-                    <span className="text-brand-muted block uppercase text-[10px] font-bold">Health Facility</span>
-                    <span className="font-bold text-sm text-brand-forest mt-0.5 block">{user.institution}</span>
-                    <span className="text-brand-emerald font-semibold">Tier-1 Verified Partner</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-brand-ivory/40 border border-brand-border">
-                    <span className="text-brand-muted block uppercase text-[10px] font-bold">Official Email</span>
-                    <span className="font-semibold text-brand-forest mt-0.5 block">{user.email}</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-brand-ivory/40 border border-brand-border">
-                    <span className="text-brand-muted block uppercase text-[10px] font-bold">Mobile Number</span>
-                    <span className="font-mono font-semibold text-brand-forest mt-0.5 block">{user.phone}</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-brand-ivory/40 border border-brand-border sm:col-span-2">
-                    <span className="text-brand-muted block uppercase text-[10px] font-bold">GSTIN Registration</span>
-                    <span className="font-mono font-bold text-sm text-brand-forest mt-0.5 block">{user.gstin}</span>
-                    <span className="text-brand-muted text-[11px]">Enables input tax credit (ITC) on all wholesale medical procurement.</span>
-                  </div>
+              <form onSubmit={handleSave} className="space-y-4">
+                <h2 className="border-b border-brand-border pb-3 font-heading text-lg font-bold text-brand-forest">Details used on the next order</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block text-xs font-semibold text-brand-muted">
+                    Contact name
+                    <input value={profile.customerName} onChange={(e) => update({ customerName: e.target.value })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted">
+                    Mobile number
+                    <input value={profile.phone} inputMode="numeric" onChange={(e) => update({ phone: e.target.value.replace(/[^0-9]/g, '').slice(0, 10) })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted">
+                    Email
+                    <input type="email" value={profile.email || ''} onChange={(e) => update({ email: e.target.value })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted">
+                    PIN code
+                    <input value={profile.pincode} inputMode="numeric" onChange={(e) => update({ pincode: e.target.value.replace(/[^0-9]/g, '').slice(0, 6) })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted sm:col-span-2">
+                    Facility or clinic name
+                    <input value={profile.institutionName || ''} onChange={(e) => update({ institutionName: e.target.value })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted sm:col-span-2">
+                    Delivery address
+                    <textarea value={profile.deliveryAddress} onChange={(e) => update({ deliveryAddress: e.target.value })} rows={3} className="mt-1 w-full rounded-xl border border-brand-border px-3 py-2 text-sm text-brand-forest" />
+                  </label>
+                  <label className="block text-xs font-semibold text-brand-muted sm:col-span-2">
+                    GSTIN, if you need it on the invoice
+                    <input value={profile.gstNumber || ''} onChange={(e) => update({ gstNumber: e.target.value.toUpperCase() })} className="mt-1 w-full rounded-xl border border-brand-border px-3 text-sm text-brand-forest" />
+                  </label>
                 </div>
-              </div>
+                <button type="submit" className="inline-flex min-h-11 items-center rounded-full bg-brand-teal px-5 text-sm font-semibold text-white">
+                  Save details
+                </button>
+                {savedNote && <p className="text-sm text-brand-teal">{savedNote}</p>}
+              </form>
             )}
 
-            {/* 2. Enquiry History */}
-            {activeTab === 'enquiries' && (
+            {activeTab === 'orders' && (
               <div className="space-y-4">
-                <h3 className="font-heading font-bold text-lg text-brand-forest border-b border-brand-border pb-3">
-                  WhatsApp Quotation Enquiries
-                </h3>
-
-                <div className="space-y-4">
-                  {demoEnquiries.map((enq) => (
-                    <div
-                      key={enq.id}
-                      className="p-4 rounded-2xl bg-brand-ivory/40 border border-brand-border text-xs space-y-3"
-                    >
-                      <div className="flex items-center justify-between">
+                <h2 className="border-b border-brand-border pb-3 font-heading text-lg font-bold text-brand-forest">Order history</h2>
+                {orders.length === 0 ? (
+                  <div className="rounded-2xl bg-brand-ivory p-6 text-sm text-brand-muted">
+                    <Package className="mb-3 h-6 w-6 text-brand-teal" />
+                    No orders yet. When you send a cart or a product on WhatsApp, it is listed here with the items, quantity, and total.
+                    <Link to="/shop" className="mt-3 block font-semibold text-brand-teal">Browse the catalogue</Link>
+                  </div>
+                ) : (
+                  orders.map((order) => (
+                    <article key={order.id} className="space-y-3 rounded-2xl border border-brand-border bg-brand-ivory/40 p-4 text-sm">
+                      <div className="flex flex-wrap items-start justify-between gap-2">
                         <div>
-                          <span className="font-mono font-bold text-brand-forest text-sm">{enq.id}</span>
-                          <span className="text-brand-muted text-[11px] block mt-0.5">Date: {enq.date}</span>
+                          <p className="font-mono text-sm font-bold text-brand-forest">{order.id}</p>
+                          <p className="text-xs text-brand-muted">{new Date(order.placedAt).toLocaleString('en-IN')}</p>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-brand-softGreen text-brand-emerald">
-                          {enq.status}
-                        </span>
+                        <span className="rounded-full bg-brand-softGreen px-2.5 py-1 text-[11px] font-semibold text-brand-emerald">{order.status}</span>
                       </div>
-
-                      <div className="border-t border-brand-border/60 pt-2 space-y-1">
-                        <span className="font-bold text-brand-forest block">Items:</span>
-                        <ul className="list-disc list-inside text-brand-body text-[11px] space-y-0.5">
-                          {enq.items.map((it, i) => (
-                            <li key={i}>{it}</li>
-                          ))}
-                        </ul>
+                      <ul className="space-y-1 text-xs text-brand-muted">
+                        {order.items.map((item) => (
+                          <li key={`${order.id}-${item.id}`}>{item.name} × {item.quantity}</li>
+                        ))}
+                      </ul>
+                      <div className="flex justify-between border-t border-brand-border/70 pt-2 font-semibold text-brand-forest">
+                        <span>{order.customer.customerName}</span>
+                        <span>{formatINR(order.orderTotal)}</span>
                       </div>
-
-                      <div className="border-t border-brand-border/60 pt-2 flex justify-between font-bold">
-                        <span className="text-brand-muted">Quoted Estimate:</span>
-                        <span className="text-brand-forest text-sm font-heading">{formatINR(enq.totalEstimate)}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    </article>
+                  ))
+                )}
               </div>
             )}
 
-            {/* 3. Delivery Addresses */}
             {activeTab === 'addresses' && (
               <div className="space-y-4">
-                <h3 className="font-heading font-bold text-lg text-brand-forest border-b border-brand-border pb-3">
-                  Saved Clinic Delivery Addresses
-                </h3>
-
-                <div className="p-4 rounded-2xl bg-brand-ivory/40 border border-brand-border text-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-brand-forest">Primary OT & Inpatient Receiving</span>
-                    <span className="text-[10px] font-bold text-brand-emerald bg-brand-softGreen px-2 py-0.5 rounded">DEFAULT</span>
+                <h2 className="border-b border-brand-border pb-3 font-heading text-lg font-bold text-brand-forest">Default delivery address</h2>
+                {!hasProfile ? (
+                  <p className="text-sm text-brand-muted">Save a profile first. That address is the one the cart uses.</p>
+                ) : (
+                  <div className="rounded-2xl border border-brand-border bg-brand-ivory/40 p-4 text-sm">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="font-bold text-brand-forest">{profile.institutionName || profile.customerName || 'Saved address'}</span>
+                      <span className="rounded bg-brand-softGreen px-2 py-0.5 text-[10px] font-bold text-brand-emerald">DEFAULT</span>
+                    </div>
+                    <p className="leading-relaxed text-brand-muted">{profile.deliveryAddress || 'No street address yet.'}</p>
+                    <p className="mt-2 text-xs text-brand-muted">
+                      {profile.phone ? `+91 ${profile.phone}` : 'No number saved'}{profile.pincode ? ` · PIN ${profile.pincode}` : ''}
+                    </p>
+                    <button type="button" onClick={() => setActiveTab('profile')} className="mt-4 text-sm font-semibold text-brand-teal">Edit details</button>
                   </div>
-                  <p className="text-brand-body/90 leading-relaxed">
-                    Chandra Multispeciality Clinic, 3rd Floor Diagnostic Wing, 14th Main Road, Indiranagar, Bengaluru, Karnataka - 560038
-                  </p>
-                  <span className="text-brand-muted block">Contact: +91 98450 12345</span>
-                </div>
+                )}
               </div>
             )}
-
           </div>
-
         </div>
-
       </div>
     </div>
   );

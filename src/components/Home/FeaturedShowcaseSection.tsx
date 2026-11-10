@@ -27,7 +27,7 @@ export const FeaturedShowcaseSection: React.FC = () => {
   const { toggleWishlist, isInWishlist } = useWishlist();
 
   return (
-    <section className="py-16 sm:py-24 bg-brand-warmWhite border-b border-brand-border/60">
+    <section className="py-14 sm:py-16 bg-brand-ivory border-b border-brand-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
         {/* Section Header with Staggered & Scroll Reveal Animation */}

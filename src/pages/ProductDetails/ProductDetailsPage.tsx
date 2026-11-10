@@ -6,6 +6,7 @@ import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useRecentlyViewed } from '../../context/RecentlyViewedContext';
 import { formatINR, isValidIndianPinCode, getPincodeDeliveryInfo, generateWhatsAppOrderUrl } from '../../utils/formatters';
+import { loadProfile, recordOrder } from '../../utils/customerStore';
 import { storeConfig } from '../../config/storeConfig';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import {
@@ -67,17 +68,30 @@ export const ProductDetailsPage: React.FC = () => {
   };
 
   const handleDirectWhatsAppOrder = () => {
-    // Generate direct WhatsApp link for this single product
-    const mockCustomer = {
-      customerName: 'Healthcare Enquirer',
-      phone: '',
-      pincode: pincodeInput || storeConfig.address.pincode,
-      deliveryAddress: 'Direct product enquiry',
+    const saved = loadProfile();
+    const buyer = {
+      customerName: saved?.customerName || 'Healthcare Enquirer',
+      phone: saved?.phone || '',
+      email: saved?.email,
+      pincode: pincodeInput || saved?.pincode || storeConfig.address.pincode,
+      deliveryAddress: saved?.deliveryAddress || 'Direct product enquiry',
+      institutionName: saved?.institutionName,
+      gstNumber: saved?.gstNumber,
     };
     const lineTotal = product.price * quantity;
+    recordOrder({
+      id: `DSM-${Date.now().toString(36).toUpperCase()}`,
+      placedAt: new Date().toISOString(),
+      items: [{ id: product.id, name: product.name, quantity, price: product.price }],
+      subtotal: lineTotal,
+      shippingFee: 0,
+      orderTotal: lineTotal,
+      customer: buyer,
+      status: 'Sent on WhatsApp',
+    });
     const url = generateWhatsAppOrderUrl(
       [{ product, quantity }],
-      mockCustomer,
+      buyer,
       lineTotal,
       0,
       lineTotal
@@ -138,13 +152,13 @@ export const ProductDetailsPage: React.FC = () => {
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE_DATA_URI;
                   }}
-                  className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 cursor-zoom-in"
+                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105 cursor-zoom-in"
                   onClick={() => setIsZoomModalOpen(true)}
                 />
 
                 {/* Vermilion Discount Badge */}
                 {product.discountPercent && (
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-md bg-brand-vermilion text-white text-xs font-bold shadow-xs">
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-md bg-brand-forest text-brand-gold text-xs font-semibold">
                     {product.discountPercent}% OFF
                   </div>
                 )}

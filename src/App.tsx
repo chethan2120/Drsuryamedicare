@@ -33,6 +33,41 @@ import { HealthcareAssistantChat } from './components/Chatbot/HealthcareAssistan
 import { CheckCircle2, X } from 'lucide-react';
 
 // Scroll to top helper with anchor hash support (#home)
+function RevealController() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal], .reveal-stagger'));
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach((node) => node.classList.add('is-in'));
+      return;
+    }
+
+    root.classList.add('js');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    nodes.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) node.classList.add('is-in');
+      else observer.observe(node);
+    });
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  return null;
+}
+
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
@@ -60,7 +95,7 @@ function GlobalToast() {
   if (!toastMessage) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-brand-forest text-brand-warmWhite shadow-modal border border-brand-emerald/40 animate-fade-in max-w-sm">
+    <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-brand-forest text-white shadow-modal border border-brand-gold/40 animate-fade-in max-w-sm">
       <CheckCircle2 className="w-5 h-5 text-brand-emerald flex-shrink-0" />
       <span className="text-xs font-semibold flex-1 leading-snug">{toastMessage}</span>
       <button
@@ -76,8 +111,9 @@ function GlobalToast() {
 
 function AppContent() {
   return (
-    <div className="min-h-screen flex flex-col bg-brand-warmWhite text-brand-body selection:bg-brand-emerald selection:text-white">
+    <div className="min-h-screen flex flex-col bg-brand-ivory text-brand-body selection:bg-brand-emerald selection:text-white">
       <ScrollToTop />
+      <RevealController />
       <Header />
       <main className="flex-1">
         <Routes>

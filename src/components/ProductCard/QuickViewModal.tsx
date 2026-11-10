@@ -130,7 +130,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               />
 
               {product.discountPercent && product.discountPercent > 0 && (
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-brand-vermilion text-white text-xs font-bold shadow-xs">
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-brand-forest text-brand-gold text-xs font-semibold">
                   -{product.discountPercent}% OFF
                 </div>
               )}

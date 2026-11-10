@@ -35,7 +35,7 @@ export const InteractiveDealBanner: React.FC = () => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-brand-forest via-[#054E2C] to-brand-forest text-brand-warmWhite py-3 sm:py-4 px-3 sm:px-6 border-y border-brand-emerald/40 shadow-inner relative overflow-hidden">
+    <section className="bg-brand-forest text-white py-3 sm:py-4 px-4 sm:px-6 border-y border-brand-gold/30 relative overflow-hidden">
       
       {/* Background glow effects */}
       <div className="absolute -left-20 -top-20 w-60 h-60 rounded-full bg-brand-emerald/20 blur-3xl pointer-events-none" />

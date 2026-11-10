@@ -194,7 +194,7 @@ export const products: Product[] = [
     discountPercent: 25,
     shortDescription: 'WHO osmolarity oral rehydration powder with Sodium, Potassium, Chloride, and Dextrose for severe dehydration.',
     description: 'Scientifically calibrated clinical rehydration formula for immediate fluid and electrolyte restoration during gastroenteritis, acute diarrhea, vomiting, heat exhaustion, and strenuous clinical duties.',
-    images: ['/products/tab-ors.svg'],
+    images: ['/products/tab-ors.jpg'],
     specifications: {
       'Standards': 'WHO Standard Osmolarity Formula (245 mOsmol/L)',
       'Ingredients': 'Sodium Chloride, Potassium Chloride, Sodium Citrate, Anhydrous Dextrose',
@@ -268,7 +268,7 @@ export const products: Product[] = [
     discountPercent: 36,
     shortDescription: 'Clinically validated automatic digital oscillometric BP monitor with large backlit LCD and arrhythmia detection.',
     description: 'Engineered for medical OPDs and patient home vitals monitoring. Features WHO hypertension classification bar, irregular heartbeat (IHB) indicator, 2x99 reading memory with time stamp, and dual power options.',
-    images: ['/products/bp-monitor.svg'],
+    images: ['/products/bp-monitor.jpg'],
     specifications: {
       'Measurement Range': 'Pressure 0-299 mmHg, Pulse 40-180 beats/min',
       'Accuracy': 'Pressure ±3 mmHg, Pulse ±5% of reading',
@@ -303,7 +303,7 @@ export const products: Product[] = [
     discountPercent: 34,
     shortDescription: 'Acoustically superior cardiology stethoscope with solid machined stainless steel chestpiece and thick binaural tubing.',
     description: 'Designed for cardiologists, physicians, and intensive care specialists. Delivers outstanding acoustic transmission for subtle S3/S4 heart murmurs, carotid bruits, and faint bronchial breath sounds with soft sealing ear tips.',
-    images: ['/products/steth-cardio.svg'],
+    images: ['/products/stethoscope.jpg'],
     specifications: {
       'Chestpiece': 'Solid CNC-machined AISI 316 Stainless Steel Dual Head',
       'Diaphragm': 'Tunable adult & pediatric fiberglass acoustic diaphragms',
@@ -337,7 +337,7 @@ export const products: Product[] = [
     discountPercent: 32,
     shortDescription: '10-second fast clinical thermometer with fever alarm, memory recall, and waterproof sensor tip.',
     description: 'Mercury-free digital oral and axillary thermometer with high-precision thermistor sensor. Beeps upon peak temperature reading and features color-coded fever alert on LCD display.',
-    images: ['/products/thermometer.svg'],
+    images: ['/products/thermometer.jpg'],
     specifications: {
       'Response Time': '10 to 15 seconds fast oral / axillary detection',
       'Accuracy': '±0.1°C (35.5°C to 42.0°C)',
@@ -370,7 +370,7 @@ export const products: Product[] = [
     discountPercent: 25,
     shortDescription: 'Simultaneous 12-lead diagnostic ECG with 7-inch color touch screen, auto-interpretation, and USB PDF export.',
     description: 'Hospital cardiology-grade electrocardiograph featuring advanced digital filtering, baseline stabilization, and Glasgow algorithm automatic arrhythmia analysis. Built-in high-resolution 216mm thermal printer for full A4-width waveform printouts.',
-    images: ['/products/ecg-machine.svg'],
+    images: ['/products/ecg-machine.jpg'],
     specifications: {
       'Leads': 'Standard 12 leads simultaneous acquisition and display',
       'Display': '7.0 inch High-Resolution Color Touch LCD Screen',
@@ -446,7 +446,7 @@ export const products: Product[] = [
     discountPercent: 24,
     shortDescription: 'Brushless DC motor centrifuge for serum separation, plasma harvesting, and PRP preparation with digital timer.',
     description: 'Sturdy, vibration-free laboratory centrifuge for diagnostic pathology centers, blood collection centers, and PRP therapy. Features an 8 x 15 ml fixed-angle rotor, digital speed display, timer from 1 to 99 minutes, and automatic lid safety interlock.',
-    images: ['/products/centrifuge.svg'],
+    images: ['/products/centrifuge.jpg'],
     specifications: {
       'Max Speed': '4,000 RPM (Stepless digital control)',
       'Max RCF': '2,200 x g relative centrifugal force',
@@ -520,7 +520,7 @@ export const products: Product[] = [
     discountPercent: 19,
     shortDescription: '10 Liters/min medical purity (93% ± 3%) continuous oxygen generator with dual flowmeters for two patients.',
     description: 'Heavy-duty oil-free copper compressor system engineered for continuous 24x7 hospital ward and home ICU use. Low noise operation (≤ 45 dB), digital oxygen purity monitor with LED indicator, built-in nebulizer outlet, and heavy-duty 360-degree castor wheels.',
-    images: ['/products/oxygen-concentrator.svg'],
+    images: ['/products/oxygen-concentrator.jpg'],
     specifications: {
       'Flow Rate': '0.5 to 10 Litres/min continuous output',
       'Oxygen Purity': '93% ± 3% across all flow settings',
@@ -560,7 +560,7 @@ export const products: Product[] = [
     discountPercent: 35,
     shortDescription: '4.0 mil heavy-duty medical examination gloves with micro-textured fingertips and 100% latex-free formulation.',
     description: 'Hospital-grade medical exam nitrile gloves offering superior puncture resistance, biological barrier protection, and tactile sensitivity. Chemical-tested, food-safe, and designed with micro-textured fingertips for non-slip grip in clinical and diagnostic procedures.',
-    images: ['/products/gloves-nitrile.svg'],
+    images: ['/products/gloves-nitrile.jpg'],
     specifications: {
       'Material': '100% Acrylonitrile Butadiene (Nitrile, Latex-Free)',
       'Thickness': '4.0 mil finger, 3.5 mil palm',
@@ -596,7 +596,7 @@ export const products: Product[] = [
     discountPercent: 33,
     shortDescription: 'High-elasticity natural rubber examination gloves with USP cornstarch powder for effortless donning.',
     description: 'Supple natural rubber latex gloves offering exceptional elasticity and anatomical fit. Beaded cuff prevents roll-down, and smooth inner surface ensures rapid donning during busy hospital rounds.',
-    images: ['/products/gloves-latex.svg'],
+    images: ['/products/gloves-latex.jpg'],
     specifications: {
       'Material': 'Premium Natural Rubber Latex',
       'Lubrication': 'USP Bio-absorbable cornstarch powdering',
@@ -629,7 +629,7 @@ export const products: Product[] = [
     discountPercent: 43,
     shortDescription: 'BFE ≥ 99% certified medical masks with meltblown middle filter, malleable nose clip, and soft ultrasonic earloops.',
     description: 'Triple-layer clinical protection: Spunbond outer fluid-repellent layer, central high-density meltblown electrostatic filter layer, and ultra-soft hypoallergenic inner moisture-absorbing layer. Designed for all-day comfort without ear strain.',
-    images: ['/products/mask-3ply.svg'],
+    images: ['/products/mask-3ply.jpg'],
     specifications: {
       'Filtration': 'Bacterial Filtration Efficiency (BFE) ≥ 99%, PFE ≥ 98%',
       'Layers': '25 GSM Spunbond + 25 GSM Meltblown + 25 GSM Spunbond',
@@ -664,7 +664,7 @@ export const products: Product[] = [
     discountPercent: 34,
     shortDescription: 'AAMI Level 3 fluid-barrier surgical gown with ultrasonic welded seams and soft knit cuffs.',
     description: 'Engineered for operation theater procedures with moderate to high fluid contact risk. SMS (Spunbond-Meltblown-Spunbond) fabric provides an impenetrable biological barrier while remaining lightweight and breathable.',
-    images: ['/products/gown-sms.svg'],
+    images: ['/products/gown-sms.jpg'],
     specifications: {
       'Material': '50 GSM Medical Grade SMS Non-Woven Polypropylene',
       'Barrier Level': 'AAMI Level 3 Fluid & Blood Barrier Compliance',
@@ -703,7 +703,7 @@ export const products: Product[] = [
     discountPercent: 34,
     shortDescription: 'Sterile gravity infusion set with built-in air vent, bacteria-retentive filter, and micro-roller clamp.',
     description: 'Clinical intravenous administration set featuring a sharp piercing spike, transparent cylindrical drip chamber (20 drops/ml), built-in 15-micron fluid filter, and smooth roller clamp for precise flow titration.',
-    images: ['/products/iv-set-vented.svg'],
+    images: ['/products/iv-set.jpg'],
     specifications: {
       'Drop Rate': '20 drops/ml distilled water',
       'Tube Length': '150 cm kink-resistant clear PVC tubing',
@@ -736,7 +736,7 @@ export const products: Product[] = [
     discountPercent: 32,
     shortDescription: 'Economy non-vented IV drip set for collapsible plastic saline bottles with self-sealing injection flashbulb.',
     description: 'Reliable intravenous set designed for soft collapsible infusion containers. Features transparent drip chamber, smooth roller controller, and self-sealing latex injection site for intermittent medication injections.',
-    images: ['/products/iv-set-nonvented.svg'],
+    images: ['/products/iv-set.jpg'],
     specifications: {
       'Drop Factor': '20 drops = 1 ml ± 0.1 ml',
       'Tubing': '150 cm soft flexible medical tubing',
@@ -769,7 +769,7 @@ export const products: Product[] = [
     discountPercent: 35,
     shortDescription: 'PTFE radiopaque intravenous catheter with Japanese stainless steel needle and color-coded wings (20G / 22G).',
     description: 'Precision peripheral IV catheter featuring back-cut ground bevel for virtually painless venipuncture. Flexible fold-down wings ensure stable fixation to patient skin, and color-coded port allows immediate gauge identification.',
-    images: ['/products/iv-cannula.svg'],
+    images: ['/products/iv-cannula.jpg'],
     specifications: {
       'Available Gauges': '18G (Green), 20G (Pink), 22G (Blue), 24G (Yellow)',
       'Catheter Material': 'Kink-resistant biocompatible PTFE (Teflon)',
@@ -803,7 +803,7 @@ export const products: Product[] = [
     discountPercent: 36,
     shortDescription: '3-piece clear barrel syringes with ultra-fine 23G needle, natural rubber gasket, and bold graduation marks.',
     description: 'High-clarity polypropylene 3-piece hypodermic syringes for smooth medication injection. Siliconized plunger ensures smooth glide without jerky motion, and clear indelible black scale ensures accurate dosage measurement.',
-    images: ['/products/syringe-5ml.svg'],
+    images: ['/products/syringe.jpg'],
     specifications: {
       'Capacity': '5 ml with 0.2 ml graduation intervals',
       'Needle Size': '23G x 1 inch ultra-thin wall needle mounted',
@@ -837,7 +837,7 @@ export const products: Product[] = [
     discountPercent: 28,
     shortDescription: '12-ply sterile folded gauze swabs with tucked-in edges to prevent loose threads in surgical wounds.',
     description: 'Manufactured from 100% bleached woven surgical cotton gauze. High absorbency capacity for wound exudate, blood swabbing during minor OT procedures, and sterile wound packing without lint shedding.',
-    images: ['/products/gauze-roll.svg'],
+    images: ['/products/gauze.jpg'],
     specifications: {
       'Size': '10 cm x 10 cm (12 Ply folded)',
       'Material': '100% Absorbent Surgical Cotton (IP Standard)',
@@ -875,7 +875,7 @@ export const products: Product[] = [
     discountPercent: 27,
     shortDescription: 'Complete 24-piece minor surgery kit in autoclavable stainless steel tray for OPD clinics and casualty.',
     description: 'Comprehensive general surgical instrumentation set crafted from German-grade AISI 410/420 surgical stainless steel. Includes scalpel handles, artery forceps (straight & curved), dissecting forceps, Mayo needle holders, suture scissors, and dressing forceps.',
-    images: ['/products/ot-set.svg'],
+    images: ['/products/surgical-instruments.jpg'],
     specifications: {
       'Pieces': '24 Essential Surgical Instruments + Stainless Steel Instrument Box',
       'Material': 'AISI 410/420 Surgical Stainless Steel (Passivated & Rust-Resistant)',
@@ -909,7 +909,7 @@ export const products: Product[] = [
     discountPercent: 31,
     shortDescription: 'Ultra-sharp Swedish carbon steel scalpel blades with V-shaped cutting edge for stab incisions.',
     description: 'Precision honed surgical blades engineered for delicate surgical incisions, suture removal, and minor surgical procedures. Fits standard No. 3 scalpel handles.',
-    images: ['/products/scalpel.svg'],
+    images: ['/products/scalpel.jpg'],
     specifications: {
       'Blade Number': '#11 (Sharp triangular pointed tip)',
       'Blade Material': 'High Carbon Swedish Surgical Steel',
@@ -942,7 +942,7 @@ export const products: Product[] = [
     discountPercent: 31,
     shortDescription: 'Cross-serrated tungsten-carbide style grip jaws with multi-step ratchet lock for positive needle control.',
     description: 'Ergonomic surgical needle driver designed for driving suturing needles through tough tissues. Features cross-serrated inner jaws with central groove to prevent needle slippage or rotation during suturing.',
-    images: ['/products/needle-holder.svg'],
+    images: ['/products/surgical-instruments.jpg'],
     specifications: {
       'Length': '6.0 inches (15 cm)',
       'Jaws': 'Fine cross-serrated carbide pattern with central needle canal',
@@ -980,7 +980,7 @@ export const products: Product[] = [
     discountPercent: 29,
     shortDescription: '130 bubble-cell medical air mattress with ultra-silent alternating cycle pump for bedsore prevention.',
     description: 'Clinically proven prevention and treatment of pressure ulcers (bedsores) in bedridden or immobile patients. 130 bubble cells alternate inflation and deflation every 6 minutes, redistributing contact pressure and promoting micro-capillary blood circulation.',
-    images: ['/products/mattress-air.svg'],
+    images: ['/products/hospital-bed.jpg'],
     specifications: {
       'Dimensions': '200 cm (L) x 90 cm (W) x 7 cm (H)',
       'Cycle Time': 'Alternating inflation every 6 minutes',
@@ -1048,7 +1048,7 @@ export const products: Product[] = [
     discountPercent: 23,
     shortDescription: 'Heavy-gauge steel patient bed with backrest crank, collapsible aluminum side railings, and 5-inch castors.',
     description: 'Built for ward comfort and long-term patient recovery. Features a perforated sheet top, smooth mechanical crank mechanism for effortless back elevation up to 75°, removable molded ABS head and foot boards, and IV pole sockets on all four corners.',
-    images: ['/products/hospital-bed.svg'],
+    images: ['/products/hospital-bed.jpg'],
     specifications: {
       'Frame': 'CRCA tubular steel frame with epoxy powder coating',
       'Overall Dimensions': '2060 mm (L) x 900 mm (W) x 600 mm (H)',
@@ -1119,7 +1119,7 @@ export const products: Product[] = [
     discountPercent: 28,
     shortDescription: 'High-strength steel folding wheelchair with solid puncture-proof PU mag wheels and attendant brakes.',
     description: 'Engineered for patient mobility in hospitals, clinics, and home eldercare. Folds compactly within seconds to fit vehicle boots. Equipped with dual handbrakes for the attendant, self-propelling hand rims, swing-away footrests, and breathable nylon seat fabric.',
-    images: ['/products/wheelchair.svg'],
+    images: ['/products/wheelchair.jpg'],
     specifications: {
       'Frame': 'Powder-coated tubular steel with cross-brace folding mechanism',
       'Rear Wheels': '24-inch solid PU mag wheels (No inflation required)',
@@ -1154,7 +1154,7 @@ export const products: Product[] = [
     discountPercent: 30,
     shortDescription: 'Dual-mode reciprocal and fixed folding walking frame with one-button release mechanism.',
     description: 'Provides stable balance assistance for post-hip replacement recovery, stroke rehabilitation, and elder mobility. Features reciprocal hinges that allow each side of the walker to advance alternately with user footsteps.',
-    images: ['/products/mobility-walker.svg'],
+    images: ['/products/walker.jpg'],
     specifications: {
       'Frame': '1-inch heavy-gauge anodized aluminum tubing',
       'Height Range': 'Adjustable 78 cm to 96 cm (8 push-button height notches)',
@@ -1191,7 +1191,7 @@ export const products: Product[] = [
     discountPercent: 27,
     shortDescription: 'Comprehensive trauma responder bag with burn dressings, splints, tourniquet, eye wash, and sterile supplies.',
     description: 'Essential emergency first aid bag for clinics, manufacturing plants, educational institutions, and sports complexes. Sturdy ballistic nylon bag with quick-access transparent internal mesh pouches organizes over 140 emergency response items.',
-    images: ['/products/firstaid-kit.svg'],
+    images: ['/products/first-aid-kit.jpg'],
     specifications: {
       'Total Contents': '140 medical items across trauma, burns, wound care, and triage',
       'Bag Material': 'Water-resistant 1000D Ballistic Cordura with reflective safety strips',
@@ -1224,7 +1224,7 @@ export const products: Product[] = [
     discountPercent: 27,
     shortDescription: '100% autoclavable medical liquid silicone resuscitator with pop-off pressure valve and oxygen reservoir.',
     description: 'Designed for manual pulmonary ventilation during cardiac arrest, anesthesia induction, and emergency transit. Transparent medical-grade silicone bag provides excellent tactile recoil feedback and allows quick detection of airway obstructions.',
-    images: ['/products/ambu-resuscitator.svg'],
+    images: ['/products/ambu-bag.jpg'],
     specifications: {
       'Bag Volume': '1600 ml adult silicone bag',
       'Reservoir Bag': '2600 ml oxygen reservoir bag',
@@ -1257,7 +1257,7 @@ export const products: Product[] = [
     discountPercent: 30,
     shortDescription: 'Radiolucent foam-padded bendable aluminum splint for bone immobilization and limb fractures.',
     description: 'Lightweight, waterproof, and reusable fracture splint. Can be bent into structural curves to support fractured arms, wrists, legs, or ankles. Does not interfere with diagnostic X-rays.',
-    images: ['/products/splint-roll.svg'],
+    images: ['/products/splint.jpg'],
     specifications: {
       'Dimensions': '36 inches (91 cm) x 4.25 inches (11 cm)',
       'Material': 'Thin aluminum alloy core sandwiched between closed-cell foam',
@@ -1294,7 +1294,7 @@ export const products: Product[] = [
     discountPercent: 33,
     shortDescription: 'Wrinkle-resistant tailored white lab coat with tablet pocket, chest pen pocket, and side slit access.',
     description: 'Crisp, professional lab apron tailored from premium breathable combed poly-cotton. Features reinforced bartack stitching, 3 generous utility pockets, deep side slits for trouser pocket access, and a smart notched lapel collar.',
-    images: ['/products/doctor-coat.svg'],
+    images: ['/products/lab-coat.jpg'],
     specifications: {
       'Fabric': '65% Polyester / 35% Combed Cotton (240 GSM Heavy Weave)',
       'Fit': 'Unisex Modern Professional Fit',
@@ -1360,7 +1360,7 @@ export const products: Product[] = [
     discountPercent: 31,
     shortDescription: 'Seamless SS 304 kidney tray for receiving medical dressings, used instruments, and fluids.',
     description: 'Precision drawn from solid 304 surgical stainless steel with a high-mirror finish. Curvature fits snugly against patient body contours during wound irrigation and ear syringing. Autoclavable and corrosion resistant.',
-    images: ['/products/surgical-tray.svg'],
+    images: ['/products/surgical-tray.jpg'],
     specifications: {
       'Length': '10 inches (250 mm)',
       'Material': 'AISI 304 Surgical Stainless Steel',

@@ -111,7 +111,8 @@ export const TestimonialsSection: React.FC = () => {
 
   return (
     <section
-      className="py-14 sm:py-20 bg-brand-ivory/40 border-b border-brand-border/60 relative overflow-hidden"
+      data-surface="cream"
+      className="py-14 sm:py-20 bg-brand-ivory border-b border-brand-border/60 relative overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

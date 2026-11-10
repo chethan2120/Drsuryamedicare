@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { blankProfile, loadProfile, recordOrder, saveProfile } from '../../utils/customerStore';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { formatINR, isValidIndianMobile, isValidIndianPinCode, generateWhatsAppOrderUrl } from '../../utils/formatters';
@@ -36,17 +37,8 @@ export const CartPage: React.FC = () => {
   const navigate = useNavigate();
 
   // Customer Checkout Form details
-  const [customer, setCustomer] = useState<CustomerOrderDetails>({
-    customerName: '',
-    phone: '',
-    email: '',
-    pincode: '',
-    deliveryAddress: '',
-    institutionName: '',
-    institutionType: 'Clinic / Nursing Home',
-    gstNumber: '',
-    notes: '',
-  });
+  const [customer, setCustomer] = useState<CustomerOrderDetails>(() => loadProfile() ?? blankProfile());
+  const [saveDetails, setSaveDetails] = useState(true);
 
   const [formErrors, setFormErrors] = useState<{
     customerName?: string;
@@ -92,6 +84,23 @@ export const CartPage: React.FC = () => {
     } catch {
       // safe fallback
     }
+
+    if (saveDetails) saveProfile(customer);
+    recordOrder({
+      id: `DSM-${Date.now().toString(36).toUpperCase()}`,
+      placedAt: new Date().toISOString(),
+      items: items.map((item) => ({
+        id: item.product.id,
+        name: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
+      subtotal,
+      shippingFee,
+      orderTotal,
+      customer,
+      status: 'Sent on WhatsApp',
+    });
 
     const whatsappUrl = generateWhatsAppOrderUrl(
       items,
@@ -429,6 +438,16 @@ export const CartPage: React.FC = () => {
                     className="w-full px-3 py-2 rounded-xl bg-brand-ivory/30 border border-brand-border outline-none focus:border-brand-emerald text-xs font-medium text-brand-forest"
                   />
                 </div>
+
+                <label className="flex items-start gap-2 text-xs text-brand-forest">
+                  <input
+                    type="checkbox"
+                    checked={saveDetails}
+                    onChange={(e) => setSaveDetails(e.target.checked)}
+                    className="mt-0.5"
+                  />
+                  <span>Save this name, number, and address as the default for the next order.</span>
+                </label>
 
                 {/* Submit to WhatsApp Button */}
                 <button
