@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, IndianRupee, Phone, Truck } from 'lucide-react';
 import { categories } from '../../data/categories';
@@ -8,21 +8,16 @@ import { formatINR } from '../../utils/formatters';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { BulkCtaSection } from '../../components/Home/BulkCtaSection';
 import { FaqSection } from '../../components/Home/FaqSection';
-import { HeroShowcase } from '../../components/Home/HeroShowcase';
+import { HeroShowcase, heroSlides } from '../../components/Home/HeroShowcase';
 import { TopSellingShowcase } from '../../components/Home/TopSellingShowcase';
+import { TestimonialsSection } from '../../components/Home/TestimonialsSection';
 
 export const HomePage: React.FC = () => {
-  const shopCategories = categories.filter((category) => category.productCount > 0);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const onHeroChange = useCallback((index: number) => setHeroIndex(index), []);
+  const hero = heroSlides[heroIndex] ?? heroSlides[0];
+  const shopCategories = categories.filter((category) => category.productCount > 0).slice(0, 6);
   const featured = products.filter((product) => product.isFeatured).slice(0, 4);
-  const brands = useMemo(() => {
-    const grouped = new Map<string, { name: string; count: number }>();
-    products.forEach((product) => {
-      const current = grouped.get(product.brand);
-      if (current) current.count += 1;
-      else grouped.set(product.brand, { name: product.brand, count: 1 });
-    });
-    return Array.from(grouped.values()).sort((a, b) => b.count - a.count).slice(0, 8);
-  }, []);
 
   useEffect(() => {
     if (window.location.hash === '#home') {
@@ -35,16 +30,18 @@ export const HomePage: React.FC = () => {
       <section className="relative overflow-x-clip bg-white">
         <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-8 pt-7 sm:px-6 sm:pb-10 sm:pt-9 lg:grid-cols-12 lg:gap-14 lg:px-8 lg:pb-12 lg:pt-12">
           <div className="min-w-0 lg:col-span-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">
-              Healthcare marketplace
-            </p>
-            <h1 className="hero-title mt-3 font-heading font-bold tracking-tight text-brand-navy">
-              Clinical supplies,
-              <span className="hero-accent block">ready to order.</span>
-            </h1>
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-brand-body sm:text-base">
-              Equipment, surgical supplies, and daily medicines for clinics, hospitals, and home care across India.
-            </p>
+            <div key={hero.src} className="hero-copy" aria-live="polite">
+              <p className="hero-copy-line text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">
+                {hero.kicker}
+              </p>
+              <h1 className="hero-title mt-3 font-heading font-bold tracking-tight text-brand-navy">
+                <span className="hero-copy-line block" style={{ animationDelay: '80ms' }}>{hero.title}</span>
+                <span className="hero-accent hero-copy-line block" style={{ animationDelay: '160ms' }}>{hero.accent}</span>
+              </h1>
+              <p className="hero-copy-line mt-4 max-w-md text-[15px] leading-relaxed text-brand-body sm:text-base" style={{ animationDelay: '240ms' }}>
+                {hero.body}
+              </p>
+            </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/shop"
@@ -62,13 +59,13 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
           <div className="min-w-0 lg:col-span-7">
-            <HeroShowcase />
+            <HeroShowcase onChange={onHeroChange} />
           </div>
         </div>
       </section>
 
-      <section className="border-y border-brand-border bg-brand-ivory" aria-label="Supply details">
-        <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-3 px-4 py-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <section className="border-y border-brand-border bg-brand-ivory" aria-label="Supply details" data-reveal="fade">
+        <ul className="reveal-stagger mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-3 px-4 py-4 sm:px-6 lg:grid-cols-4 lg:px-8">
           <li className="flex items-center gap-3">
             <Truck className="h-5 w-5 shrink-0 text-brand-goldInk" />
             <span>
@@ -100,21 +97,19 @@ export const HomePage: React.FC = () => {
         </ul>
       </section>
 
-      <TopSellingShowcase />
-
-      <section className="border-t border-brand-border bg-white">
+      <section className="cv-auto border-t border-brand-border bg-white" data-reveal="left">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-          <div className="mb-5 flex items-end justify-between gap-4">
+          <div className="mb-5 flex items-end justify-between gap-4" data-reveal="text">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Shop by category</p>
               <h2 className="section-title mt-1">Find the department you supply</h2>
             </div>
             <Link to="/categories" className="inline-flex min-h-11 shrink-0 items-center gap-1 text-sm font-semibold text-brand-navy">
-              View All Categories
+              View all
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <div className="reveal-stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {shopCategories.map((category) => (
               <Link
                 key={category.id}
@@ -125,6 +120,9 @@ export const HomePage: React.FC = () => {
                   <img
                     src={category.image}
                     alt=""
+                    width={320}
+                    height={224}
+                    decoding="async"
                     loading="lazy"
                     className="h-full w-full object-contain object-center p-2"
                   />
@@ -136,23 +134,14 @@ export const HomePage: React.FC = () => {
               </Link>
             ))}
           </div>
-          <p className="mt-6 text-sm leading-relaxed text-brand-muted">
-            Shop by brand:{' '}
-            {brands.map((brand, index) => (
-              <span key={brand.name}>
-                {index > 0 && <span aria-hidden="true"> · </span>}
-                <Link to={`/shop?brand=${encodeURIComponent(brand.name)}`} className="font-semibold text-brand-navy">
-                  {brand.name}
-                </Link>
-              </span>
-            ))}
-          </p>
         </div>
       </section>
 
-      <section className="bg-brand-ivory">
+      <TopSellingShowcase />
+
+      <section className="cv-auto bg-brand-ivory" data-reveal="right">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="mb-6 flex items-end justify-between gap-4" data-reveal="text">
             <div>
               <h2 className="section-title">Featured healthcare equipment and supplies</h2>
               <p className="mt-1 text-sm text-brand-muted">Items marked as featured in the current catalogue.</p>
@@ -162,7 +151,7 @@ export const HomePage: React.FC = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="reveal-stagger grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {featured.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -172,13 +161,13 @@ export const HomePage: React.FC = () => {
 
       <BulkCtaSection />
 
-      <section className="border-b border-brand-border bg-white">
+      <section className="cv-auto border-b border-brand-border bg-white" data-reveal="left">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-4">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-goldInk">Why Dr Surya Medicare</p>
             <h2 className="section-title mt-2">Ordering and enquiries, in one place.</h2>
           </div>
-          <dl className="divide-y divide-brand-border border-y border-brand-border lg:col-span-8">
+          <dl className="reveal-stagger divide-y divide-brand-border border-y border-brand-border lg:col-span-8">
             <div className="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
               <dt className="font-heading font-bold text-brand-navy">WhatsApp ordering</dt>
               <dd className="text-sm leading-relaxed text-brand-body sm:col-span-2">
@@ -207,7 +196,9 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-brand-ivory">
+      <TestimonialsSection />
+
+      <section className="cv-auto bg-brand-ivory" data-reveal="fade">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -219,7 +210,7 @@ export const HomePage: React.FC = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <ul className="mt-6 divide-y divide-brand-border border-y border-brand-border">
+          <ul className="reveal-stagger mt-6 divide-y divide-brand-border border-y border-brand-border">
             {[
               { to: '/resources/buying-guides', title: 'Buying guides', detail: 'Procurement notes for hospitals and clinics.' },
               { to: '/resources/specifications', title: 'Specifications', detail: 'Technical details stored with each product.' },
@@ -241,10 +232,10 @@ export const HomePage: React.FC = () => {
 
       <FaqSection />
 
-      <section className="bg-brand-navy text-brand-ivory">
+      <section className="bg-brand-navy text-brand-ivory" data-reveal="fade">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div>
-            <h2 className="font-heading text-2xl font-bold">Need help choosing a product?</h2>
+            <h2 className="font-heading text-2xl font-bold text-brand-ivory">Need help choosing a product?</h2>
             <p className="mt-1 text-sm text-brand-ivory/80">
               Call the desk or send the list you already have.
             </p>

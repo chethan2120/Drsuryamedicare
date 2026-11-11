@@ -43,7 +43,7 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section data-surface="white" className="py-16 sm:py-20 bg-white">
+    <section data-surface="white" data-reveal="fade" className="cv-auto bg-white py-16 sm:py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-12">

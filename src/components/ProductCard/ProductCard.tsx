@@ -49,9 +49,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`h-full w-full object-contain object-center p-3 transition-opacity duration-500 ${
               isHovered && secondaryImage ? 'opacity-0' : 'opacity-100'
             }`}
+            width={640}
+            height={640}
+            decoding="async"
             loading="lazy"
           />
-          {secondaryImage && (
+          {secondaryImage && isHovered && (
             <img
               src={secondaryImage}
               alt={`${product.name} alternate view`}

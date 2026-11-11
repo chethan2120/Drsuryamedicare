@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider, useCart } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
@@ -6,32 +6,36 @@ import { RecentlyViewedProvider } from './context/RecentlyViewedContext';
 import { ResourcesProvider } from './context/ResourcesContext';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { CartDrawer } from './components/CartDrawer/CartDrawer';
 import { HomePage } from './pages/Home/HomePage';
-import { ShopPage } from './pages/Shop/ShopPage';
-import { CategoriesPage } from './pages/Category/CategoriesPage';
-import { ProductDetailsPage } from './pages/ProductDetails/ProductDetailsPage';
-import { CartPage } from './pages/Cart/CartPage';
-import { WishlistPage } from './pages/Wishlist/WishlistPage';
-import { BulkOrdersPage } from './pages/BulkOrders/BulkOrdersPage';
-import { AccountPage } from './pages/Account/AccountPage';
-import { AboutPage } from './pages/About/AboutPage';
-import { WhyUsPage } from './pages/WhyUs/WhyUsPage';
-import { ContactPage } from './pages/Contact/ContactPage';
-import { ResourcesLandingPage } from './pages/Resources/ResourcesLandingPage';
-import { ManualsPage } from './pages/Resources/ManualsPage';
-import { SpecificationsPage } from './pages/Resources/SpecificationsPage';
-import { BlogsListPage } from './pages/Resources/BlogsListPage';
-import { BlogDetailPage } from './pages/Resources/BlogDetailPage';
-import { BuyingGuidesPage } from './pages/Resources/BuyingGuidesPage';
-import { BuyingGuideDetailPage } from './pages/Resources/BuyingGuideDetailPage';
-import { ProductKnowledgePage } from './pages/Resources/ProductKnowledgePage';
-import { ProductKnowledgeDetailPage } from './pages/Resources/ProductKnowledgeDetailPage';
-import { FaqsPage } from './pages/Resources/FaqsPage';
-import { PolicyPage } from './pages/Policies/PolicyPage';
-import { AdminResourcesPage } from './pages/Admin/AdminResourcesPage';
-import { HealthcareAssistantChat } from './components/Chatbot/HealthcareAssistantChat';
 import { CheckCircle2, X } from 'lucide-react';
+
+const load = (importer: () => Promise<Record<string, React.ComponentType<any>>>, name: string) =>
+  lazy(() => importer().then((module) => ({ default: module[name] })));
+
+const CartDrawer = load(() => import('./components/CartDrawer/CartDrawer'), 'CartDrawer');
+const HealthcareAssistantChat = load(() => import('./components/Chatbot/HealthcareAssistantChat'), 'HealthcareAssistantChat');
+const ShopPage = load(() => import('./pages/Shop/ShopPage'), 'ShopPage');
+const CategoriesPage = load(() => import('./pages/Category/CategoriesPage'), 'CategoriesPage');
+const ProductDetailsPage = load(() => import('./pages/ProductDetails/ProductDetailsPage'), 'ProductDetailsPage');
+const CartPage = load(() => import('./pages/Cart/CartPage'), 'CartPage');
+const WishlistPage = load(() => import('./pages/Wishlist/WishlistPage'), 'WishlistPage');
+const BulkOrdersPage = load(() => import('./pages/BulkOrders/BulkOrdersPage'), 'BulkOrdersPage');
+const AccountPage = load(() => import('./pages/Account/AccountPage'), 'AccountPage');
+const AboutPage = load(() => import('./pages/About/AboutPage'), 'AboutPage');
+const WhyUsPage = load(() => import('./pages/WhyUs/WhyUsPage'), 'WhyUsPage');
+const ContactPage = load(() => import('./pages/Contact/ContactPage'), 'ContactPage');
+const ResourcesLandingPage = load(() => import('./pages/Resources/ResourcesLandingPage'), 'ResourcesLandingPage');
+const ManualsPage = load(() => import('./pages/Resources/ManualsPage'), 'ManualsPage');
+const SpecificationsPage = load(() => import('./pages/Resources/SpecificationsPage'), 'SpecificationsPage');
+const BlogsListPage = load(() => import('./pages/Resources/BlogsListPage'), 'BlogsListPage');
+const BlogDetailPage = load(() => import('./pages/Resources/BlogDetailPage'), 'BlogDetailPage');
+const BuyingGuidesPage = load(() => import('./pages/Resources/BuyingGuidesPage'), 'BuyingGuidesPage');
+const BuyingGuideDetailPage = load(() => import('./pages/Resources/BuyingGuideDetailPage'), 'BuyingGuideDetailPage');
+const ProductKnowledgePage = load(() => import('./pages/Resources/ProductKnowledgePage'), 'ProductKnowledgePage');
+const ProductKnowledgeDetailPage = load(() => import('./pages/Resources/ProductKnowledgeDetailPage'), 'ProductKnowledgeDetailPage');
+const FaqsPage = load(() => import('./pages/Resources/FaqsPage'), 'FaqsPage');
+const PolicyPage = load(() => import('./pages/Policies/PolicyPage'), 'PolicyPage');
+const AdminResourcesPage = load(() => import('./pages/Admin/AdminResourcesPage'), 'AdminResourcesPage');
 
 // Scroll to top helper with anchor hash support (#home)
 function RevealController() {
@@ -110,6 +114,23 @@ function GlobalToast() {
   );
 }
 
+function DeferredChrome() {
+  const [ready, setReady] = React.useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setReady(true), 2000);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  if (!ready) return null;
+  return (
+    <Suspense fallback={null}>
+      <CartDrawer />
+      <HealthcareAssistantChat />
+    </Suspense>
+  );
+}
+
 function AppContent() {
   return (
     <div className="min-h-screen flex flex-col bg-brand-ivory text-brand-body selection:bg-brand-emerald selection:text-white">
@@ -117,6 +138,7 @@ function AppContent() {
       <RevealController />
       <Header />
       <main className="flex-1 pb-16 lg:pb-0">
+        <Suspense fallback={<div className="min-h-[50vh]" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
@@ -153,10 +175,10 @@ function AppContent() {
 
           <Route path="*" element={<HomePage />} />
         </Routes>
+        </Suspense>
       </main>
       <Footer />
-      <CartDrawer />
-      <HealthcareAssistantChat />
+      <DeferredChrome />
       <GlobalToast />
     </div>
   );

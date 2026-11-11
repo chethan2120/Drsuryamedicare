@@ -44,12 +44,6 @@ export const TopSellingShowcase: React.FC = () => {
 
     return [
       {
-        id: 'lab',
-        label: 'Lab Bestsellers',
-        viewAll: '/shop?category=laboratory-equipment',
-        products: lab,
-      },
-      {
         id: 'care',
         label: 'Top Selling Critical Care & Patient Monitoring Range',
         viewAll: '/shop?category=monitoring-devices,diagnostic-equipment,respiratory-care,patient-care',
@@ -61,10 +55,16 @@ export const TopSellingShowcase: React.FC = () => {
         viewAll: '/shop?productType=Consumables',
         products: consumables,
       },
+      {
+        id: 'lab',
+        label: 'Lab Bestsellers',
+        viewAll: '/shop?category=laboratory-equipment',
+        products: lab,
+      },
     ];
   }, []);
 
-  const [activeId, setActiveId] = useState(groups[0]?.id ?? 'lab');
+  const [activeId, setActiveId] = useState(groups[0]?.id ?? 'care');
   const scroller = useRef<HTMLDivElement>(null);
   const active = groups.find((group) => group.id === activeId) ?? groups[0];
 
@@ -76,7 +76,7 @@ export const TopSellingShowcase: React.FC = () => {
   };
 
   return (
-    <section className="border-b border-brand-border bg-white" aria-labelledby="top-selling-heading">
+    <section className="cv-auto border-b border-brand-border bg-white" aria-labelledby="top-selling-heading" data-reveal>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
@@ -168,6 +168,9 @@ const ShowcaseCard: React.FC<{ product: Product }> = ({ product }) => {
         <img
           src={product.images[0]}
           alt={product.name}
+          width={640}
+          height={640}
+          decoding="async"
           loading="lazy"
           className="aspect-square w-full object-contain object-center p-4"
         />

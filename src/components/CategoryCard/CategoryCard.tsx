@@ -36,7 +36,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
 
         {/* Category Title Overlaid on Image */}
         <div className="absolute bottom-3 left-3 right-3 text-white">
-          <h3 className="font-heading font-bold text-base sm:text-lg group-hover:text-brand-ivory transition-colors drop-shadow-sm">
+          <h3 className="font-heading text-base font-bold text-white sm:text-lg">
             {category.name}
           </h3>
         </div>

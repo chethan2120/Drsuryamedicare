@@ -34,7 +34,7 @@ export default {
         }
       },
       fontFamily: {
-        heading: ['DM Sans', 'Plus Jakarta Sans', 'sans-serif'],
+        heading: ['DM Sans', 'Inter', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
       },
       boxShadow: {

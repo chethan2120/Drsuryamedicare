@@ -299,7 +299,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Final CTA Banner */}
-        <div className="rounded-3xl bg-gradient-to-r from-brand-forest to-brand-emerald p-8 sm:p-12 text-white text-center space-y-5 shadow-card">
+        <div className="rounded-3xl bg-brand-forest p-8 text-center text-brand-ivory sm:p-12">
           <h3 className="text-2xl sm:text-3xl font-heading font-extrabold text-brand-warmWhite">
             Partner with India's Foremost Medical Supplier
           </h3>

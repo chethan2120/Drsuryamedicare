@@ -6,11 +6,11 @@ const buyers = ['Hospitals', 'Clinics', 'Diagnostic centres', 'Laboratories', 'N
 
 export const BulkCtaSection: React.FC = () => {
   return (
-    <section className="bg-brand-navy py-14 text-brand-ivory sm:py-16">
+    <section className="cv-auto bg-brand-navy py-14 text-brand-ivory sm:py-16" data-reveal="right">
       <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-7">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-emerald">Institutional supply</p>
-          <h2 className="mt-2 font-heading text-3xl font-bold leading-tight sm:text-4xl">
+          <h2 className="mt-2 font-heading text-3xl font-bold leading-tight text-brand-ivory sm:text-4xl">
             Your trusted partner for complete healthcare supplies
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-brand-ivory/80 sm:text-base">

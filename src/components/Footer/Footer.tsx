@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="font-heading font-extrabold text-lg text-brand-warmWhite">
-                  DR SURYA <span className="text-brand-ivory">MEDICARE</span>
+                  Dr Surya <span className="text-brand-ivory">Medicare</span>
                 </span>
                 <span className="text-[10px] tracking-wider uppercase text-brand-ivory/60 block -mt-1 font-semibold">
                   Healthcare Wholesale Marketplace

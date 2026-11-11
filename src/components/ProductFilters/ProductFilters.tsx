@@ -1,6 +1,7 @@
 import React from 'react';
 import { FilterState, ProductType, CategoryId } from '../../types';
 import { products } from '../../data/products';
+import type { LucideIcon } from 'lucide-react';
 import {
   RotateCcw,
   Filter,
@@ -16,7 +17,6 @@ import {
   Building2,
   Microscope,
   BriefcaseMedical,
-  LucideIcon,
 } from 'lucide-react';
 
 interface ProductFiltersProps {

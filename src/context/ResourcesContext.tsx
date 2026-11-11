@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   BlogPost,
   BuyingGuide,
@@ -6,13 +7,15 @@ import {
   FaqItem,
   ManualDocument,
 } from '../types/resources';
-import {
-  initialBlogs,
-  initialBuyingGuides,
-  initialProductKnowledge,
-  initialFaqs,
-  initialManuals,
-} from '../data/resourcesData';
+
+function readSaved<T>(key: string): T[] | null {
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? (JSON.parse(saved) as T[]) : null;
+  } catch {
+    return null;
+  }
+}
 
 interface ResourcesContextType {
   // Blogs
@@ -51,49 +54,72 @@ interface ResourcesContextType {
 const ResourcesContext = createContext<ResourcesContextType | undefined>(undefined);
 
 export const ResourcesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [blogs, setBlogs] = useState<BlogPost[]>(() => {
-    const saved = localStorage.getItem('dsm_resources_blogs');
-    return saved ? JSON.parse(saved) : initialBlogs;
-  });
+  const location = useLocation();
+  const libraryReady = useRef(false);
+  const defaults = useRef<{
+    initialBlogs: BlogPost[];
+    initialBuyingGuides: BuyingGuide[];
+    initialProductKnowledge: ProductKnowledgeArticle[];
+    initialFaqs: FaqItem[];
+    initialManuals: ManualDocument[];
+  } | null>(null);
 
-  const [buyingGuides, setBuyingGuides] = useState<BuyingGuide[]>(() => {
-    const saved = localStorage.getItem('dsm_resources_guides');
-    return saved ? JSON.parse(saved) : initialBuyingGuides;
-  });
+  const [blogs, setBlogs] = useState<BlogPost[]>(() => readSaved<BlogPost>('dsm_resources_blogs') ?? []);
+  const [buyingGuides, setBuyingGuides] = useState<BuyingGuide[]>(() => readSaved<BuyingGuide>('dsm_resources_guides') ?? []);
+  const [knowledgeArticles, setKnowledgeArticles] = useState<ProductKnowledgeArticle[]>(
+    () => readSaved<ProductKnowledgeArticle>('dsm_resources_knowledge') ?? [],
+  );
+  const [faqs, setFaqs] = useState<FaqItem[]>(() => readSaved<FaqItem>('dsm_resources_faqs') ?? []);
+  const [manuals, setManuals] = useState<ManualDocument[]>(() => readSaved<ManualDocument>('dsm_resources_manuals') ?? []);
 
-  const [knowledgeArticles, setKnowledgeArticles] = useState<ProductKnowledgeArticle[]>(() => {
-    const saved = localStorage.getItem('dsm_resources_knowledge');
-    return saved ? JSON.parse(saved) : initialProductKnowledge;
-  });
+  const needsLibrary = /^\/(resources|admin|faqs)(\/|$)/.test(location.pathname);
 
-  const [faqs, setFaqs] = useState<FaqItem[]>(() => {
-    const saved = localStorage.getItem('dsm_resources_faqs');
-    return saved ? JSON.parse(saved) : initialFaqs;
-  });
-
-  const [manuals, setManuals] = useState<ManualDocument[]>(() => {
-    const saved = localStorage.getItem('dsm_resources_manuals');
-    return saved ? JSON.parse(saved) : initialManuals;
-  });
-
-  // Sync state to localStorage
   useEffect(() => {
+    if (!needsLibrary) return;
+    let cancelled = false;
+    const hasSaved = ['dsm_resources_blogs', 'dsm_resources_guides', 'dsm_resources_knowledge', 'dsm_resources_faqs', 'dsm_resources_manuals']
+      .every((key) => localStorage.getItem(key));
+
+    import('../data/resourcesData').then((data) => {
+      if (cancelled) return;
+      defaults.current = data;
+      if (!hasSaved) {
+        setBlogs(data.initialBlogs);
+        setBuyingGuides(data.initialBuyingGuides);
+        setKnowledgeArticles(data.initialProductKnowledge);
+        setFaqs(data.initialFaqs);
+        setManuals(data.initialManuals);
+      }
+      libraryReady.current = true;
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [needsLibrary]);
+
+  useEffect(() => {
+    if (!libraryReady.current) return;
     localStorage.setItem('dsm_resources_blogs', JSON.stringify(blogs));
   }, [blogs]);
 
   useEffect(() => {
+    if (!libraryReady.current) return;
     localStorage.setItem('dsm_resources_guides', JSON.stringify(buyingGuides));
   }, [buyingGuides]);
 
   useEffect(() => {
+    if (!libraryReady.current) return;
     localStorage.setItem('dsm_resources_knowledge', JSON.stringify(knowledgeArticles));
   }, [knowledgeArticles]);
 
   useEffect(() => {
+    if (!libraryReady.current) return;
     localStorage.setItem('dsm_resources_faqs', JSON.stringify(faqs));
   }, [faqs]);
 
   useEffect(() => {
+    if (!libraryReady.current) return;
     localStorage.setItem('dsm_resources_manuals', JSON.stringify(manuals));
   }, [manuals]);
 
@@ -201,16 +227,22 @@ export const ResourcesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const resetResourcesData = () => {
-    setBlogs(initialBlogs);
-    setBuyingGuides(initialBuyingGuides);
-    setKnowledgeArticles(initialProductKnowledge);
-    setFaqs(initialFaqs);
-    setManuals(initialManuals);
-    localStorage.removeItem('dsm_resources_blogs');
-    localStorage.removeItem('dsm_resources_guides');
-    localStorage.removeItem('dsm_resources_knowledge');
-    localStorage.removeItem('dsm_resources_faqs');
-    localStorage.removeItem('dsm_resources_manuals');
+    const apply = (data: NonNullable<typeof defaults.current>) => {
+      setBlogs(data.initialBlogs);
+      setBuyingGuides(data.initialBuyingGuides);
+      setKnowledgeArticles(data.initialProductKnowledge);
+      setFaqs(data.initialFaqs);
+      setManuals(data.initialManuals);
+      libraryReady.current = true;
+    };
+    if (defaults.current) {
+      apply(defaults.current);
+      return;
+    }
+    import('../data/resourcesData').then((data) => {
+      defaults.current = data;
+      apply(data);
+    });
   };
 
   return (

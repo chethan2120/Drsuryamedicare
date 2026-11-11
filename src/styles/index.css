@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: 'Inter', sans-serif;
     color: #0B0F0E;
     background-color: #FFFFFF;
@@ -28,8 +28,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
-    color: #0B0F0E;
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    color: inherit;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
@@ -183,6 +183,28 @@
 
   html.js [data-reveal="image"]:not(.is-in) {
     transform: translateY(10px);
+  }
+
+  html.js [data-reveal="fade"]:not(.is-in) {
+    transform: none;
+  }
+
+  html.js [data-reveal="left"]:not(.is-in) {
+    transform: translateX(-36px);
+  }
+
+  html.js [data-reveal="right"]:not(.is-in) {
+    transform: translateX(36px);
+  }
+
+  html.js [data-reveal="text"]:not(.is-in) {
+    transform: translateY(28px);
+    letter-spacing: 0.04em;
+  }
+
+  html.js [data-reveal="text"].is-in {
+    letter-spacing: -0.02em;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), letter-spacing 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   html.js .reveal-stagger.is-in > *:nth-child(2) { --reveal-delay: 70ms; }
@@ -379,6 +401,32 @@ footer .text-brand-teal,
 
 .hero-accent {
   color: #14D993;
+}
+
+.hero-copy-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy-line,
+  .hero-slide-img {
+    animation: hero-copy-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+.cv-auto {
+  content-visibility: visible;
+}
+
+@keyframes hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

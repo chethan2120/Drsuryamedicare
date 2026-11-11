@@ -99,7 +99,7 @@ export const Header: React.FC = () => {
       <div data-site-header data-tone={isScrolled ? 'white' : 'cream'} className="site-header sticky top-0 z-50 w-full">
         
         {/* 1. Micro Top Bar — same navy as the footer */}
-        <div className="border-b border-white/10 bg-brand-navy px-3 py-1.5 text-[11px] leading-4 text-brand-ivory sm:px-6 sm:py-2 sm:text-xs">
+        <div className="hidden border-b border-white/10 bg-brand-navy px-3 py-1.5 text-[11px] leading-4 text-brand-ivory md:block sm:px-6 sm:py-2 sm:text-xs">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-center sm:justify-between sm:text-left">
             <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
               <button
@@ -144,7 +144,7 @@ export const Header: React.FC = () => {
             <Link
               to="/#home"
               onClick={handleLogoClick}
-              className="brand-lockup group flex min-w-0 shrink items-center gap-2 outline-none sm:shrink-0 sm:gap-2.5"
+              className="brand-lockup group flex shrink-0 items-center gap-2 outline-none sm:gap-2.5"
               title="Dr Surya Medicare - Home"
             >
               <div
@@ -153,13 +153,11 @@ export const Header: React.FC = () => {
                 <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-brand-ivory" />
               </div>
 
-              <div className="min-w-0 sm:min-w-max">
-                <span
-                  className="block max-sm:truncate font-heading text-[15px] font-bold tracking-tight text-brand-forest sm:text-base lg:text-[17px] xl:text-lg"
-                >
-                  DR SURYA <span className="text-brand-emerald">MEDICARE</span>
+              <div className="leading-none">
+                <span className="block whitespace-nowrap font-heading text-[13px] font-bold tracking-tight text-brand-forest sm:text-base lg:text-[17px]">
+                  Dr Surya <span className="text-brand-emerald">Medicare</span>
                 </span>
-                <span className="text-[10px] sm:text-[11px] tracking-[0.14em] uppercase text-brand-muted font-medium block truncate">
+                <span className="mt-1 hidden whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.14em] text-brand-muted sm:block sm:text-[11px]">
                   Healthcare Marketplace
                 </span>
               </div>
@@ -208,7 +206,7 @@ export const Header: React.FC = () => {
               {/* Wishlist */}
               <Link
                 to="/wishlist"
-                className="relative flex h-10 w-10 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite hover:text-brand-vermilion"
+                className="relative hidden h-10 w-10 items-center justify-center rounded-xl text-brand-forest transition-colors hover:bg-brand-warmWhite hover:text-brand-vermilion lg:flex"
                 title="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -223,7 +221,7 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsCartDrawerOpen(true)}
-                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-forest hover:bg-brand-ivory"
+                className="relative hidden h-10 w-10 items-center justify-center rounded-full text-brand-forest hover:bg-brand-ivory lg:inline-flex"
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-5 h-5" />
