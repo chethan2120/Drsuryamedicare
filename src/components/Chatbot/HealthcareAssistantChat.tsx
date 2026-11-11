@@ -21,8 +21,8 @@ interface ChatMessage {
   };
 }
 
-export const HealthcareAssistantChat: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const HealthcareAssistantChat: React.FC<{ startOpen?: boolean }> = ({ startOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(startOpen);
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);

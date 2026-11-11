@@ -11,6 +11,7 @@ import { FaqSection } from '../../components/Home/FaqSection';
 import { HeroShowcase, heroSlides } from '../../components/Home/HeroShowcase';
 import { TopSellingShowcase } from '../../components/Home/TopSellingShowcase';
 import { TestimonialsSection } from '../../components/Home/TestimonialsSection';
+import { BuyerDeskSection } from '../../components/Home/BuyerDeskSection';
 
 export const HomePage: React.FC = () => {
   const [heroIndex, setHeroIndex] = useState(0);
@@ -197,6 +198,8 @@ export const HomePage: React.FC = () => {
       </section>
 
       <TestimonialsSection />
+
+      <BuyerDeskSection />
 
       <section className="cv-auto bg-brand-ivory" data-reveal="fade">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">

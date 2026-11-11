@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { formatINR } from '../../utils/formatters';
-import { QuickViewModal } from './QuickViewModal';
 import { Heart, ShoppingBag, Eye, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
+
+const QuickViewModal = lazy(() => import('./QuickViewModal').then((module) => ({ default: module.QuickViewModal })));
 
 const FALLBACK_IMAGE_DATA_URI =
   "data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3e%3crect width='400' height='400' fill='%23F7FAF8'/%3e%3cpath d='M184 112h32v136h-32zM132 164h136v32H132z' fill='%230B0F0E'/%3e%3c/svg%3e";
@@ -152,7 +153,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      <QuickViewModal product={product} isOpen={isQuickViewOpen} onClose={() => setIsQuickViewOpen(false)} />
+      {isQuickViewOpen ? (
+        <Suspense fallback={null}>
+          <QuickViewModal product={product} isOpen={isQuickViewOpen} onClose={() => setIsQuickViewOpen(false)} />
+        </Suspense>
+      ) : null}
     </article>
   );
 };

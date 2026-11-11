@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const heroSlides = [
@@ -31,6 +31,8 @@ export const heroSlides = [
 export const HeroShowcase: React.FC<{ onChange?: (index: number) => void }> = ({ onChange }) => {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [bootLive] = useState(() => typeof document !== 'undefined' && !!document.getElementById('lcp-hero'));
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -56,6 +58,22 @@ export const HeroShowcase: React.FC<{ onChange?: (index: number) => void }> = ({
     return () => window.clearTimeout(timer);
   }, [active]);
 
+  useEffect(() => {
+    const frame = frameRef.current;
+    const boot = document.getElementById('lcp-hero');
+    if (!frame || !(boot instanceof HTMLImageElement)) return;
+    frame.prepend(boot);
+    document.documentElement.classList.add('hero-ready');
+  }, []);
+
+  useEffect(() => {
+    const boot = document.getElementById('lcp-hero');
+    if (!(boot instanceof HTMLImageElement)) return;
+    const slide = heroSlides[active];
+    if (!boot.src.endsWith(slide.src)) boot.src = slide.src;
+    boot.alt = slide.alt;
+  }, [active]);
+
   const go = (index: number) => {
     setActive((index + heroSlides.length) % heroSlides.length);
   };
@@ -68,7 +86,8 @@ export const HeroShowcase: React.FC<{ onChange?: (index: number) => void }> = ({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-brand-cool">
+      <div ref={frameRef} className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-brand-cool">
+        {bootLive ? null : (
         <img
           key={heroSlides[active].src}
           src={heroSlides[active].src}
@@ -80,6 +99,7 @@ export const HeroShowcase: React.FC<{ onChange?: (index: number) => void }> = ({
           className={`absolute inset-0 h-full w-full object-cover object-center ${active === 0 ? '' : 'hero-slide-img'}`}
           draggable={false}
         />
+        )}
 
         <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2 sm:bottom-4 sm:left-4">
           <div className="flex items-center gap-1.5 rounded-full bg-brand-navy/35 px-2.5 py-2">

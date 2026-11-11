@@ -12,12 +12,51 @@
     <meta name="description" content="Your trusted healthcare supply partner. Explore verified medical equipment, surgical supplies, and clinic essentials with direct WhatsApp ordering and fast pan-India delivery." />
     <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preload" as="image" href="/hero/hero-slide-1.jpg" fetchpriority="high" />
+    <style>
+      #lcp-hero {
+        position: fixed;
+        z-index: 2;
+        left: 1rem;
+        right: 1rem;
+        top: 23.5rem;
+        width: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 1rem;
+        background: #e7eeea;
+      }
+      @media (min-width: 1024px) {
+        #lcp-hero {
+          top: 9rem;
+          left: auto;
+          right: max(2rem, calc((100% - 80rem) / 2 + 2rem));
+          width: min(46rem, 54vw);
+        }
+      }
+      html.hero-ready #lcp-hero {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@600;700&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@600;700&family=Inter:wght@400;500;600&display=swap" /></noscript>
   </head>
   <body class="bg-brand-ivory text-brand-body font-body antialiased selection:bg-brand-emerald selection:text-white">
+    <img
+      id="lcp-hero"
+      src="/hero/hero-slide-1.jpg"
+      width="1280"
+      height="720"
+      alt="Clinical gloves, a pulse oximeter, and surgical instruments arranged on a supply counter"
+      fetchpriority="high"
+      decoding="async"
+    />
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
